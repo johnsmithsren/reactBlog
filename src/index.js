@@ -1,7 +1,9 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 // import App from "./App";
+
 import BlogLayout from "./components/layout";
 // import Hello from "./components/hello";
 import * as serviceWorker from "./serviceWorker";
