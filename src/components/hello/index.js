@@ -2,6 +2,7 @@ import React, { Component } from "react";
 // import { Row } from "antd";
 // 定义一个行组件
 import Rows from "../rows";
+import { Col } from "antd";
 
 // import { Table } from "react-bootstrap";
 // 定义一个 hello 组件
@@ -12,12 +13,7 @@ class Hello extends Component {
       <Rows key={issue.id} issueinfo={issue} />
     ));
 
-    return (
-      <div>
-        welcome to my blog {info}
-        {helloRows}
-      </div>
-    );
+    return <Col>{helloRows}</Col>;
   }
 }
 export default Hello;
