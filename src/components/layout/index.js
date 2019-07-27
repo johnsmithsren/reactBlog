@@ -1,34 +1,20 @@
 import React, { Component } from "react";
-import Hello from "../hello";
-import Login from "../login";
 import BlogNavBar from "../navBar";
+import { Container, Badge, Col, Row, Button } from "react-bootstrap";
 import {
-  Container,
-  Badge,
-  Col,
-  Nav,
-  Row,
-  Button,
-  ButtonToolbar
-} from "react-bootstrap";
-// import "bootstrap/dist/css/bootstrap.css";
-// const _ = require("lodash");
-// const FontAwesome = require('react-fontawesome');
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect
+} from "react-router-dom";
+import Login from "../login";
 class BlogLayout extends Component {
   constructor() {
     super();
     this.state = { issues: [{ id: 1, name: "hhh", Col: "这是一段评论" }] };
-    this.updateIssues = this.updateIssues.bind(this);
-  }
-  updateIssues() {
-    const issueObj = {
-      name: "www",
-      Col: "这是评论"
-    };
-    const newIssues = this.state.issues.slice();
-    issueObj.id = newIssues.length + 1;
-    newIssues.push(issueObj);
-    this.setState({ issues: newIssues });
+    this.Index = this.Index.bind(this);
+    this.About = this.About.bind(this);
+    this.Users = this.Users.bind(this);
   }
 
   componentDidMount() {
@@ -37,37 +23,49 @@ class BlogLayout extends Component {
   }
 
   componentWillUnmount() {}
-  loadData() {
-    // setInterval(() => {
-    //   this.updateIssues();
-    // }, 2000);
+  loadData() {}
+
+  Index() {
+    return (
+      <Router>
+        <Container>
+          <br />
+          <Row className="justify-content-md-center">
+            <Col md="10">
+              <h2>
+                <Link to="/index/">
+                  JIM <Badge variant="secondary">博客</Badge>
+                </Link>
+              </h2>
+            </Col>
+            <Col>
+              <Button href="/login/">登录</Button>
+            </Col>
+          </Row>
+          <BlogNavBar />
+        </Container>
+        {/* <Route path="/login/" exact component={Login} /> */}
+      </Router>
+    );
   }
 
+  About() {
+    return <h2>About</h2>;
+  }
+
+  Users() {
+    return <h2>Users</h2>;
+  }
   render() {
     // const info = this.props.info;
     return (
-      <Container>
-        <br />
-        <Row className="justify-content-md-center">
-          <Col md="12">
-            <h2>
-              JIM <Badge variant="secondary">博客</Badge>
-            </h2>
-          </Col>
-        </Row>
-        <BlogNavBar />
-        {/* <Row>
-          <Col md="auto">
-            <ButtonToolbar>
-              <Button variant="primary" onClick={this.updateIssues}>
-                添加评论
-              </Button>
-            </ButtonToolbar>
-            <Hello issueId={2} issues={this.state.issues} />
-            <Login />
-          </Col>
-        </Row> */}
-      </Container>
+      <Router>
+        <Route path="/" exact={true} component={this.Index} />
+        <Route path="/about/" exact={true} component={this.About} />
+        <Route path="/users/" exact={true} component={this.Users} />
+        <Route path="/login/" exact component={Login} />
+        <Route path="/index/" exact component={this.Index} />
+      </Router>
     );
   }
 }
