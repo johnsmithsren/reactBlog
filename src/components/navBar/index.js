@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-26 08:37:36
- * @LastEditTime: 2019-07-30 17:59:35
+ * @LastEditTime: 2019-07-31 16:40:38
  * @Description:
  */
 import React, { Component } from "react";
@@ -87,7 +87,7 @@ class BlogNavBar extends Component {
         </Row>
         <br />
         <Row>
-          <Col md={5}>
+          <Col md={7}>
             {/* <Button variant="primary" onClick={this.updateIssues}>
               添加评论
             </Button> */}
