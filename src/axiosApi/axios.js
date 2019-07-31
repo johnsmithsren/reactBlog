@@ -1,15 +1,15 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-27 12:56:42
- * @LastEditTime: 2019-07-27 13:42:08
+ * @LastEditTime: 2019-07-30 21:05:42
  * @Description: 对于axios进行统一封装
  */
 const axios = require("axios");
-const config = require("../../config");
+// const config = require("../../config");
 class Axios {
   constructor() {
     this._axios = axios.create({
-      baseURL: "http://www.demaciaspower.cn"
+      baseURL: "http://127.0.0.1:3001/"
     });
     this.init();
   }

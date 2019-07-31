@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-26 08:37:36
- * @LastEditTime: 2019-07-27 19:19:45
+ * @LastEditTime: 2019-07-30 17:59:35
  * @Description:
  */
 import React, { Component } from "react";
@@ -14,9 +14,13 @@ const _ = require("lodash");
 class BlogNavBar extends Component {
   constructor() {
     super();
-    this.state = { issues: [{ id: 1, name: "hhh", Col: "这是一段评论" }] };
+    this.state = {
+      issues: [{ id: 1, name: "hhh", Col: "这是一段评论" }],
+      type: "index"
+    };
     this.updateIssues = this.updateIssues.bind(this);
     this.deleteIssues = this.deleteIssues.bind(this);
+    this.updateNavBarType = this.updateNavBarType.bind(this);
   }
 
   componentDidMount() {}
@@ -34,6 +38,10 @@ class BlogNavBar extends Component {
     newIssues.push(issueObj);
     this.setState({ issues: newIssues });
   }
+  updateNavBarType(type) {
+    // console.log(type);
+    this.setState({ type: type });
+  }
   deleteIssues() {
     this.setState({ issues: [] });
   }
@@ -44,13 +52,26 @@ class BlogNavBar extends Component {
         <Row>
           <Col>
             <Navbar bg="light" variant="light">
-              <Navbar.Brand onClick={this.updateIssues}>首页</Navbar.Brand>
+              <Navbar.Brand onClick={this.updateNavBarType.bind(this, "index")}>
+                首页
+              </Navbar.Brand>
               <Nav className="mr-auto">
                 <Nav.Item>
-                  <Nav.Link onClick={this.updateIssues}>博客</Nav.Link>
+                  <Nav.Link onClick={this.updateNavBarType.bind(this, "blog")}>
+                    博客
+                  </Nav.Link>
                 </Nav.Item>
+                <Nav.Link onClick={this.updateNavBarType.bind(this, "comic")}>
+                  漫画
+                </Nav.Link>
+                {_.get(this.state, "type") === "comic" ? (
+                  <Nav.Link onClick={this.updateNavBarType.bind(this, "comic")}>
+                    创建
+                  </Nav.Link>
+                ) : (
+                  []
+                )}
 
-                <Nav.Link onClick={this.deleteIssues}>漫画</Nav.Link>
                 {/* <Nav.Link href="#pricing">Pricing</Nav.Link> */}
               </Nav>
               <Form inline>
@@ -70,7 +91,11 @@ class BlogNavBar extends Component {
             {/* <Button variant="primary" onClick={this.updateIssues}>
               添加评论
             </Button> */}
-            <Hello issueId={2} issues={this.state.issues} />
+            <Hello
+              issueId={2}
+              issues={this.state.issues}
+              type={this.state.type}
+            />
           </Col>
 
           <Col>

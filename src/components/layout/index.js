@@ -5,8 +5,10 @@ import {
   BrowserRouter as Router,
   Route,
   Link,
-  Redirect
+  Switch,
+  HashRouter
 } from "react-router-dom";
+// import { HashRouter } from "react-router";
 import Login from "../login";
 class BlogLayout extends Component {
   constructor() {
@@ -23,6 +25,14 @@ class BlogLayout extends Component {
   }
 
   componentWillUnmount() {}
+  componentDidUpdate(pre) {
+    const oldQuery = pre.location.query;
+    const newQuery = this.props.location.query;
+    if (oldQuery.status === newQuery.status) {
+      return;
+    }
+    this.loadData();
+  }
   loadData() {}
 
   Index() {
@@ -59,13 +69,19 @@ class BlogLayout extends Component {
   render() {
     // const info = this.props.info;
     return (
+      // <Router>
       <Router>
-        <Route path="/" exact={true} component={this.Index} />
-        <Route path="/about/" exact={true} component={this.About} />
-        <Route path="/users/" exact={true} component={this.Users} />
-        <Route path="/login/" exact component={Login} />
-        <Route path="/index/" exact component={this.Index} />
+        <Route path="/" exact component={this.Index} />
+        <Switch>
+          {/* <Redirect from="/" to="/login/" /> */}
+
+          <Route path="/about/" exact component={this.About} />
+          <Route path="/users/" exact component={this.Users} />
+          <Route path="/login/" exact component={Login} />
+          {/* <Route path="*" component={() => <p>not match</p>} /> */}
+        </Switch>
       </Router>
+      // </Router>
     );
   }
 }

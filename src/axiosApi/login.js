@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-27 13:54:27
- * @LastEditTime: 2019-07-27 17:49:21
+ * @LastEditTime: 2019-07-27 20:57:05
  * @Description: 登录相关接口
  */
 
@@ -18,15 +18,11 @@ class LoginManger {
    */
   login(userInfo) {
     let _username = _.get(userInfo, "username");
-    let _password = _.get(userInfo, "password");
+    // let _password = _.get(userInfo, "password");
     if (!_username) {
       return Promise.reject(new Error(`登录无效：用户名称(${_username})`));
     }
-    let param = {
-      username: _username,
-      password: _password
-    };
-    return this._axios.get(`/login`, param);
+    return this._axios.get(`/login`, userInfo);
   }
 
   /**
