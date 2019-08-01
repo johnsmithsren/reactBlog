@@ -1,37 +1,49 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-26 08:37:36
- * @LastEditTime: 2019-07-31 21:32:41
+ * @LastEditTime: 2019-08-01 21:59:24
  * @Description:
  */
+import contentApi from "../../axiosApi/content";
+import comicApi from "../../axiosApi/comic";
 import React, { Component } from "react";
 // import Hello from "../hello";
-import { ListGroup, Row, Col, ButtonToolbar, Button } from "react-bootstrap";
-import Hello from "../hello";
+import { ListGroup, Row, Col } from "react-bootstrap";
+// import Hello from "../hello";
 const _ = require("lodash");
 
 class BlogList extends Component {
-  constructor() {
-    super();
-    this.state = { issues: [{ id: 1, name: "hhh", Col: "这是一段评论" }] };
+  constructor(props) {
+    super(props);
+    this.state = { topContent: <p>没有更新</p>, topComic: <p>没有更新</p> };
     // this.updateIssues = this.updateIssues.bind(this);
   }
 
-  componentDidMount() {}
+  async componentDidMount() {
+    let topContent = await contentApi.getTopBlog();
+    let topComic = await comicApi.getTopComic();
+    let _topContent = topContent.map(topcontent => (
+      <ListGroup.Item action href="#link2">
+        {topcontent.title}
+      </ListGroup.Item>
+    ));
+    let _topComic = topComic.map(topcomic => (
+      <ListGroup.Item action href="#link2">
+        {topcomic.title}
+      </ListGroup.Item>
+    ));
+    this.setState({ topContent: _topContent, topComic: _topComic });
+  }
 
   componentWillUnmount() {}
-
-  handleChange(e) {}
 
   render() {
     return (
       <Row>
         <Col sm={{ offset: 4 }}>
           <ListGroup>
-            <ListGroup.Item action href="#link2">
-              侧边栏
-            </ListGroup.Item>
-            <ListGroup.Item>侧边栏1</ListGroup.Item>
+            {this.state.topContent}
+            {this.state.topComic}
           </ListGroup>
         </Col>
       </Row>

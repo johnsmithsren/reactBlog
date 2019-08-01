@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-30 13:00:26
- * @LastEditTime: 2019-07-30 20:50:15
+ * @LastEditTime: 2019-08-01 21:55:44
  * @Description:
  */
 
@@ -49,8 +49,18 @@ class ContentManger {
    * @return:
    */
 
-  listContent(id, content) {
+  listContent() {
     return this._axios.get(`/list/content`);
+  }
+
+  /**
+   * @description: 获取最新的博客名称
+   * @param {type}
+   * @return:
+   */
+
+  getTopBlog() {
+    return this._axios.get(`/list/top/content`);
   }
 }
 

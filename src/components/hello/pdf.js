@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-31 22:21:33
- * @LastEditTime: 2019-08-01 17:17:47
+ * @LastEditTime: 2019-08-01 22:14:18
  * @Description: 加载pdf文档
  */
 
@@ -40,7 +40,7 @@ class Pdf extends Component {
     let comicList = this.props.comicList.map(comic => (
       <>
         <Dropdown.Item
-          as="button"
+          size="sm"
           eventKey={comic.id}
           path={comic.path}
           onClick={e => this.changeValue(e.target.textContent, comic.path)}
@@ -52,16 +52,6 @@ class Pdf extends Component {
     return (
       <>
         <Row>
-          <Col md={8}>
-            <nav>
-              <Button variant="light" onClick={this.goToPrevPage}>
-                上一页
-              </Button>
-              <Button variant="light" onClick={this.goToNextPage}>
-                下一页
-              </Button>
-            </nav>
-          </Col>
           <Col>
             <DropdownButton
               size="sm"
@@ -81,6 +71,7 @@ class Pdf extends Component {
             </DropdownButton>
           </Col>
         </Row>
+
         {this.state.comicPath ? (
           <Row>
             <Col>
@@ -93,6 +84,16 @@ class Pdf extends Component {
               <p>
                 Page {pageNumber} of {numPages}
               </p>
+            </Col>
+            <Col md={{ offset: 8 }}>
+              <nav>
+                <Button variant="light" onClick={this.goToPrevPage}>
+                  上一页
+                </Button>
+                <Button variant="light" onClick={this.goToNextPage}>
+                  下一页
+                </Button>
+              </nav>
             </Col>
           </Row>
         ) : (
