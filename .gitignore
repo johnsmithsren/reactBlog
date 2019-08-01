@@ -8,7 +8,7 @@ configs/
 .vscode
 # testing
 /coverage
-
+src/pdfsource
 # production
 /build
 

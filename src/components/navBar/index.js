@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-26 08:37:36
- * @LastEditTime: 2019-07-31 16:40:38
+ * @LastEditTime: 2019-07-31 22:08:02
  * @Description:
  */
 import React, { Component } from "react";
@@ -16,7 +16,7 @@ class BlogNavBar extends Component {
     super();
     this.state = {
       issues: [{ id: 1, name: "hhh", Col: "这是一段评论" }],
-      type: "index"
+      type: "blog"
     };
     this.updateIssues = this.updateIssues.bind(this);
     this.deleteIssues = this.deleteIssues.bind(this);
@@ -52,7 +52,7 @@ class BlogNavBar extends Component {
         <Row>
           <Col>
             <Navbar bg="light" variant="light">
-              <Navbar.Brand onClick={this.updateNavBarType.bind(this, "index")}>
+              <Navbar.Brand onClick={this.updateNavBarType.bind(this, "blog")}>
                 首页
               </Navbar.Brand>
               <Nav className="mr-auto">
@@ -64,13 +64,13 @@ class BlogNavBar extends Component {
                 <Nav.Link onClick={this.updateNavBarType.bind(this, "comic")}>
                   漫画
                 </Nav.Link>
-                {_.get(this.state, "type") === "comic" ? (
+                {/* {_.get(this.state, "type") === "comic" ? (
                   <Nav.Link onClick={this.updateNavBarType.bind(this, "comic")}>
                     创建
                   </Nav.Link>
                 ) : (
                   []
-                )}
+                )} */}
 
                 {/* <Nav.Link href="#pricing">Pricing</Nav.Link> */}
               </Nav>

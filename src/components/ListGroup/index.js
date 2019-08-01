@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-26 08:37:36
- * @LastEditTime: 2019-07-31 16:45:00
+ * @LastEditTime: 2019-07-31 21:32:41
  * @Description:
  */
 import React, { Component } from "react";
@@ -26,7 +26,7 @@ class BlogList extends Component {
   render() {
     return (
       <Row>
-        <Col sm={{ span: 5, offset: 6 }}>
+        <Col sm={{ offset: 4 }}>
           <ListGroup>
             <ListGroup.Item action href="#link2">
               侧边栏
