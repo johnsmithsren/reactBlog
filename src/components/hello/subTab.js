@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-31 13:33:36
- * @LastEditTime: 2019-07-31 23:24:50
+ * @LastEditTime: 2019-08-01 13:55:31
  * @Description: 博客内容组件
  */
 
@@ -60,7 +60,7 @@ class SubBlogTab extends Component {
     return this.props.type === "blog" ? (
       <Tab.Container id="list-group-blog">{blogRow}</Tab.Container>
     ) : (
-      <Pdf />
+      <Pdf comicList={this.props.comicList} />
     );
   }
 }

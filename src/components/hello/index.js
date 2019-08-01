@@ -5,6 +5,7 @@ import React, { Component } from "react";
 import SubTab from "./subTab";
 // import { Col } from "antd";
 import contentApi from "../../axiosApi/content";
+import comicApi from "../../axiosApi/comic";
 
 // import { Table } from "react-bootstrap";
 // 定义一个 hello 组件
@@ -13,31 +14,46 @@ class Hello extends Component {
     super(props);
     this.state = {
       type: props.type,
-      contentList: []
+      contentList: [],
+      comicList: []
     };
     this.getContent = this.getContent.bind(this);
   }
   // async componentWillMount() {}
   async componentDidMount() {
-    await this.getContent(this.props.type);
+    await this.getContent();
     // this.setState({ helloRows: result });
   }
-  async getContent(type) {
-    let result = await contentApi.listContent(type);
+  async getContent() {
+    let result = await contentApi.listContent();
     this.setState({ contentList: result });
+    // return result;
+  }
+  async getComic() {
+    let result = await comicApi.listComic();
+    this.setState({ comicList: result });
     // return result;
   }
 
   // 在componentDidUpdate中进行异步操作，驱动数据的变化
   async componentDidUpdate(previousProps, previousState) {
     if (previousProps.type !== this.props.type) {
-      await this.getContent(this.props.type);
+      if (this.props.type === "comic") {
+        await this.getComic();
+      } else {
+        await this.getContent();
+      }
+
       // this.setState({ contentList: result });
     }
   }
   render() {
     return (
-      <SubTab contentList={this.state.contentList} type={this.props.type} />
+      <SubTab
+        contentList={this.state.contentList}
+        type={this.props.type}
+        comicList={this.state.comicList}
+      />
     );
   }
 }
