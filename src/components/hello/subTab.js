@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-31 13:33:36
- * @LastEditTime: 2019-08-03 08:22:13
+ * @LastEditTime: 2019-08-03 17:34:12
  * @Description: 博客内容组件
  */
 
@@ -15,6 +15,7 @@ import {
   Dropdown
 } from "react-bootstrap";
 import Dialogue from "../dialogue";
+import contentApi from "../../axiosApi/content";
 import Pdf from "./pdf";
 const _ = require("lodash");
 
@@ -51,15 +52,34 @@ class SubBlogTab extends Component {
     }
   }
 
-  handleDropdownClick(e) {
+  async handleDropdownClick(e, content) {
     if (_.get(e, "target.attributes.prefix.value") === "edit") {
-      this.setState({ handleShow: true });
+      this.setState({
+        handleShow: true,
+        contentInfo: content
+      });
+    }
+    if (_.get(e, "target.attributes.prefix.value") === "create") {
+      this.setState({
+        handleShow: true,
+        contentInfo: []
+      });
+    }
+    if (_.get(e, "target.attributes.prefix.value") === "delete") {
+      await contentApi.deleteContent({ id: _.get(content, "id") });
+      await this.props.getContent();
+      // await this.props.getComic();
     }
     if (_.get(e, "target.attributes.handle.value") === "open") {
       this.setState({ handleShow: true });
     }
-    if (_.get(e, "target.attributes.handle.value") === "close") {
+    if (
+      e === "close" ||
+      _.get(e, "target.attributes.handle.value") === "close"
+    ) {
       this.setState({ handleShow: false });
+      await this.props.getContent();
+      await this.props.getComic();
     }
   }
 
@@ -79,7 +99,6 @@ class SubBlogTab extends Component {
                   key={content.id}
                   onClick={k => this.setKey(k)}
                   action
-                  // href={`#${content.id}`}
                 >
                   <Row>
                     <Col href={`#${content.id}`} onClick={k => this.setKey(k)}>
@@ -96,21 +115,21 @@ class SubBlogTab extends Component {
                           eventKey="1"
                           prefix="edit"
                           handle="open"
-                          onClick={e => this.handleDropdownClick(e)}
+                          onClick={e => this.handleDropdownClick(e, content)}
                         >
                           编辑
                         </Dropdown.Item>
                         <Dropdown.Item
                           eventKey="2"
                           prefix="delete"
-                          onClick={e => this.handleDropdownClick(e)}
+                          onClick={e => this.handleDropdownClick(e, content)}
                         >
                           删除
                         </Dropdown.Item>
                         <Dropdown.Item
                           eventKey="3"
                           prefix="create"
-                          onClick={e => this.handleDropdownClick(e)}
+                          onClick={e => this.handleDropdownClick(e, content)}
                         >
                           创建
                         </Dropdown.Item>
@@ -141,6 +160,7 @@ class SubBlogTab extends Component {
         </Tab.Container>
         <Dialogue
           handleDropdownClick={this.handleDropdownClick.bind(this)}
+          contentInfo={this.state.contentInfo}
           handleShow={this.state.handleShow}
         />
       </>

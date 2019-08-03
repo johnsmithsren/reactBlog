@@ -25,13 +25,13 @@ class Hello extends Component {
     // this.setState({ helloRows: result });
   }
   async getContent() {
-    let result = await contentApi.listContent();
-    this.setState({ contentList: result });
+    let contentInfo = await contentApi.listContent();
+    this.setState({ contentList: contentInfo });
     // return result;
   }
   async getComic() {
-    let result = await comicApi.listComic();
-    this.setState({ comicList: result });
+    let comicInfo = await comicApi.listComic();
+    this.setState({ comicList: comicInfo });
     // return result;
   }
 
@@ -53,6 +53,8 @@ class Hello extends Component {
         contentList={this.state.contentList}
         type={this.props.type}
         comicList={this.state.comicList}
+        getComic={this.getComic.bind(this)}
+        getContent={this.getContent.bind(this)}
       />
     );
   }

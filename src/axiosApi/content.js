@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-30 13:00:26
- * @LastEditTime: 2019-08-01 21:55:44
+ * @LastEditTime: 2019-08-03 17:26:41
  * @Description:
  */
 
@@ -16,13 +16,18 @@ class ContentManger {
    * @param {type}
    * @return:
    */
-  createContent(userInfo) {
-    let _username = _.get(userInfo, "username");
-    // let _password = _.get(userInfo, "password");
-    if (!_username) {
-      return Promise.reject(new Error(`登录无效：用户名称(${_username})`));
-    }
-    return this._axios.post(`/create/content`, userInfo);
+  createContent(contentInfo) {
+    return this._axios.post(`/create/content`, contentInfo);
+  }
+
+  /**
+   * @description: 编辑博客
+   * @param {type}
+   * @return:
+   */
+
+  editContent(contentInfo) {
+    return this._axios.post(`/edit/content`, contentInfo);
   }
 
   /**
@@ -32,15 +37,6 @@ class ContentManger {
    */
   deleteContent(id) {
     return this._axios.delete(`/delete/content`, id);
-  }
-
-  /**
-   * @description: 编辑博客
-   * @param {type}
-   * @return:
-   */
-  editContent(id, content) {
-    return this._axios.post(`/update/content`);
   }
 
   /**
