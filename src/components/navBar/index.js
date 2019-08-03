@@ -88,9 +88,6 @@ class BlogNavBar extends Component {
         <br />
         <Row>
           <Col md={7}>
-            {/* <Button variant="primary" onClick={this.updateIssues}>
-              添加评论
-            </Button> */}
             <Hello
               issueId={2}
               issues={this.state.issues}

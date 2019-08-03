@@ -1,26 +1,67 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-31 13:33:36
- * @LastEditTime: 2019-08-01 13:55:31
+ * @LastEditTime: 2019-08-03 08:22:13
  * @Description: 博客内容组件
  */
 
 import React, { Component } from "react";
-import { ListGroup, Row, Tab, Col } from "react-bootstrap";
+import {
+  ListGroup,
+  Row,
+  Tab,
+  Col,
+  DropdownButton,
+  Dropdown
+} from "react-bootstrap";
+import Dialogue from "../dialogue";
 import Pdf from "./pdf";
-// import { Col } from "antd";
-// import contentApi from "../../axiosApi/content";
-// import { Table } from "react-bootstrap";
+const _ = require("lodash");
+
 // 定义一个 hello 组件
 class SubBlogTab extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      type: props.type
+      type: props.type,
+      keyPaht: "#",
+      handleShow: false
     };
   }
   // async componentWillMount() {}
   async componentDidMount() {}
+
+  setKey(e) {
+    let _keypath = _.get(this.state, "keyPath");
+    if (e.target.localName === "div") {
+      if (
+        _.get(e, "target.attributes.href.value") !== undefined &&
+        _keypath !== _.get(e, "target.attributes.href.value")
+      ) {
+        this.setState({ keyPath: e.target.attributes.href.value });
+      } else {
+        this.setState({ keyPath: "#" });
+      }
+    } else {
+      if (_keypath !== e.target.hash) {
+        this.setState({ keyPath: e.target.hash });
+      } else {
+        this.setState({ keyPath: "#" });
+      }
+    }
+  }
+
+  handleDropdownClick(e) {
+    if (_.get(e, "target.attributes.prefix.value") === "edit") {
+      this.setState({ handleShow: true });
+    }
+    if (_.get(e, "target.attributes.handle.value") === "open") {
+      this.setState({ handleShow: true });
+    }
+    if (_.get(e, "target.attributes.handle.value") === "close") {
+      this.setState({ handleShow: false });
+    }
+  }
 
   // 在componentDidUpdate中进行异步操作，驱动数据的变化
   async componentDidUpdate(previousProps, previousState) {}
@@ -31,15 +72,51 @@ class SubBlogTab extends Component {
         <>
           <Row key={content.id} md={12}>
             <Col key={content.id}>
-              <ListGroup key={content.id}>
+              <ListGroup variant="flush" key={content.id}>
                 <ListGroup.Item
                   variant="light"
                   bsSize="sm"
                   key={content.id}
+                  onClick={k => this.setKey(k)}
                   action
-                  href={`#${content.id}`}
+                  // href={`#${content.id}`}
                 >
-                  {content.title}
+                  <Row>
+                    <Col href={`#${content.id}`} onClick={k => this.setKey(k)}>
+                      {content.title}
+                    </Col>
+                    <Col md={{ offset: 2, span: 2 }}>
+                      <DropdownButton
+                        title="操作"
+                        variant="flush"
+                        id={`dropdown-variants`}
+                        key="Secondary"
+                      >
+                        <Dropdown.Item
+                          eventKey="1"
+                          prefix="edit"
+                          handle="open"
+                          onClick={e => this.handleDropdownClick(e)}
+                        >
+                          编辑
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          eventKey="2"
+                          prefix="delete"
+                          onClick={e => this.handleDropdownClick(e)}
+                        >
+                          删除
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          eventKey="3"
+                          prefix="create"
+                          onClick={e => this.handleDropdownClick(e)}
+                        >
+                          创建
+                        </Dropdown.Item>
+                      </DropdownButton>
+                    </Col>
+                  </Row>
                 </ListGroup.Item>
               </ListGroup>
             </Col>
@@ -58,7 +135,15 @@ class SubBlogTab extends Component {
     }
 
     return this.props.type === "blog" ? (
-      <Tab.Container id="list-group-blog">{blogRow}</Tab.Container>
+      <>
+        <Tab.Container id="list-group-blog" activeKey={this.state.keyPath}>
+          {blogRow}
+        </Tab.Container>
+        <Dialogue
+          handleDropdownClick={this.handleDropdownClick.bind(this)}
+          handleShow={this.state.handleShow}
+        />
+      </>
     ) : (
       <Pdf comicList={this.props.comicList} />
     );

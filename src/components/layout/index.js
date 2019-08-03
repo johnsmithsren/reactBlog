@@ -41,16 +41,16 @@ class BlogLayout extends Component {
         <Container>
           <br />
           <Row className="justify-content-md-center">
-            <Col md="10">
+            <Col md="12">
               <h2>
                 <Link to="/index/">
                   JIM <Badge variant="secondary">博客</Badge>
                 </Link>
               </h2>
             </Col>
-            <Col>
+            {/* <Col>
               <Button href="/login/">登录</Button>
-            </Col>
+            </Col> */}
           </Row>
           <BlogNavBar />
         </Container>

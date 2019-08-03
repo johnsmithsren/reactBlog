@@ -1,14 +1,14 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-26 08:37:36
- * @LastEditTime: 2019-08-01 21:59:24
+ * @LastEditTime: 2019-08-03 07:44:13
  * @Description:
  */
 import contentApi from "../../axiosApi/content";
 import comicApi from "../../axiosApi/comic";
 import React, { Component } from "react";
 // import Hello from "../hello";
-import { ListGroup, Row, Col } from "react-bootstrap";
+import { ListGroup, Row, Col, Badge } from "react-bootstrap";
 // import Hello from "../hello";
 const _ = require("lodash");
 
@@ -23,14 +23,10 @@ class BlogList extends Component {
     let topContent = await contentApi.getTopBlog();
     let topComic = await comicApi.getTopComic();
     let _topContent = topContent.map(topcontent => (
-      <ListGroup.Item action href="#link2">
-        {topcontent.title}
-      </ListGroup.Item>
+      <ListGroup.Item>{topcontent.title}</ListGroup.Item>
     ));
     let _topComic = topComic.map(topcomic => (
-      <ListGroup.Item action href="#link2">
-        {topcomic.title}
-      </ListGroup.Item>
+      <ListGroup.Item>{topcomic.title}</ListGroup.Item>
     ));
     this.setState({ topContent: _topContent, topComic: _topComic });
   }
@@ -41,7 +37,8 @@ class BlogList extends Component {
     return (
       <Row>
         <Col sm={{ offset: 4 }}>
-          <ListGroup>
+          <Badge variant="secondary">最新更新</Badge>
+          <ListGroup variant="flush">
             {this.state.topContent}
             {this.state.topComic}
           </ListGroup>
