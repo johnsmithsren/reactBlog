@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-26 08:37:36
- * @LastEditTime: 2019-08-03 07:44:13
+ * @LastEditTime: 2019-08-23 13:57:27
  * @Description:
  */
 import contentApi from "../../axiosApi/content";
@@ -10,8 +10,8 @@ import React, { Component } from "react";
 // import Hello from "../hello";
 import { ListGroup, Row, Col, Badge } from "react-bootstrap";
 // import Hello from "../hello";
-const _ = require("lodash");
-
+// const _ = require("lodash");
+const uuidv4 = require("uuid/v4");
 class BlogList extends Component {
   constructor(props) {
     super(props);
@@ -23,10 +23,10 @@ class BlogList extends Component {
     let topContent = await contentApi.getTopBlog();
     let topComic = await comicApi.getTopComic();
     let _topContent = topContent.map(topcontent => (
-      <ListGroup.Item>{topcontent.title}</ListGroup.Item>
+      <ListGroup.Item key={uuidv4()}>{topcontent.title}</ListGroup.Item>
     ));
     let _topComic = topComic.map(topcomic => (
-      <ListGroup.Item>{topcomic.title}</ListGroup.Item>
+      <ListGroup.Item key={uuidv4()}>{topcomic.title}</ListGroup.Item>
     ));
     this.setState({ topContent: _topContent, topComic: _topComic });
   }

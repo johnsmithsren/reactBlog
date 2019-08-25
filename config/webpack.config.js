@@ -1,3 +1,9 @@
+/*
+ * @Auther: renjm
+ * @Date: 2019-07-24 21:57:15
+ * @LastEditTime: 2019-08-23 13:49:44
+ * @Description:
+ */
 const fs = require("fs");
 const isWsl = require("is-wsl");
 const path = require("path");
@@ -293,6 +299,7 @@ module.exports = function(webpackEnv) {
     },
     module: {
       strictExportPresence: true,
+      unknownContextCritical: false,
       rules: [
         // Disable require.ensure as it's not a standard language feature.
         { parser: { requireEnsure: false } },

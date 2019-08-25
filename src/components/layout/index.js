@@ -1,13 +1,7 @@
 import React, { Component } from "react";
 import BlogNavBar from "../navBar";
-import { Container, Badge, Col, Row, Button } from "react-bootstrap";
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Switch,
-  HashRouter
-} from "react-router-dom";
+import { Container, Badge, Col, Row } from "react-bootstrap";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 // import { HashRouter } from "react-router";
 import Login from "../login";
 class BlogLayout extends Component {
@@ -73,8 +67,6 @@ class BlogLayout extends Component {
       <Router>
         <Route path="/" exact component={this.Index} />
         <Switch>
-          {/* <Redirect from="/" to="/login/" /> */}
-
           <Route path="/about/" exact component={this.About} />
           <Route path="/users/" exact component={this.Users} />
           <Route path="/login/" exact component={Login} />

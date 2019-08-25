@@ -1,12 +1,12 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-30 13:00:26
- * @LastEditTime: 2019-08-03 17:26:41
+ * @LastEditTime: 2019-08-23 14:01:28
  * @Description:
  */
 
 import Axios from "./axios";
-const _ = require("lodash");
+// const _ = require("lodash");
 class ContentManger {
   constructor() {
     this._axios = new Axios();
@@ -55,8 +55,8 @@ class ContentManger {
    * @return:
    */
 
-  getTopBlog() {
-    return this._axios.get(`/list/top/content`);
+  async getTopBlog() {
+    return await this._axios.get(`/list/top/content`);
   }
 }
 

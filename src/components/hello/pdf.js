@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-31 22:21:33
- * @LastEditTime: 2019-08-02 22:29:33
+ * @LastEditTime: 2019-08-25 09:56:48
  * @Description: 加载pdf文档
  */
 
@@ -28,7 +28,7 @@ class Pdf extends Component {
     this.setState({ numPages });
   };
   changeValue(title, path) {
-    let comicPath = `../../${path}`;
+    let comicPath = path;
     this.setState({ comicTitle: title, comicPath: comicPath });
   }
   goToPrevPage = () =>
@@ -76,7 +76,7 @@ class Pdf extends Component {
           <Row>
             <Col>
               <Document
-                file={require("../../pdfsource/154.pdf")}
+                file={require(`../../pdfsource/${this.state.comicPath}`)}
                 onLoadSuccess={this.onDocumentLoadSuccess}
               >
                 <Page pageNumber={pageNumber} />

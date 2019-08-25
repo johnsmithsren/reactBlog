@@ -1,15 +1,16 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-27 12:56:42
- * @LastEditTime: 2019-08-03 17:28:14
+ * @LastEditTime: 2019-08-23 14:01:05
  * @Description: 对于axios进行统一封装
  */
 const axios = require("axios");
-// const config = require("../../config");
+const config = require("../config.json");
+
 class Axios {
   constructor() {
     this._axios = axios.create({
-      baseURL: "http://127.0.0.1:3001/"
+      baseURL: `${config.axios.url}:${config.axios.port}`
     });
     this.init();
   }
@@ -47,10 +48,10 @@ class Axios {
    * @param {type}
    * @return:
    */
-  get(url, params = {}) {
+  async get(url, params = {}) {
     // 开始 loading
     // proxyUtil.startLoading();
-    return this._axios
+    let _getResult = await this._axios
       .get(url, {
         params: params,
         validateStatus: function(status) {
@@ -71,6 +72,11 @@ class Axios {
       .finally(function() {
         // always executed
       });
+    if (_getResult) {
+      return _getResult;
+    } else {
+      return [];
+    }
   }
 
   post(url, params = {}) {

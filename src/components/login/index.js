@@ -12,20 +12,6 @@ class Login extends Component {
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  // updateIssues() {
-  //   const issueObj = {
-  //     name: "www",
-  //     Col: "这是评论"
-  //   };
-  //   const newIssues = this.state.issues.slice();
-  //   if (_.get(newIssues, "length") > 5) {
-  //     return;
-  //   } else {
-  //     issueObj.id = newIssues.length + 1;
-  //     newIssues.push(issueObj);
-  //     this.setState({ issues: newIssues });
-  //   }
-  // }
 
   componentDidMount() {
     this.loadData();
@@ -33,21 +19,14 @@ class Login extends Component {
   }
 
   componentWillUnmount() {}
-  loadData() {
-    // setInterval(() => {
-    //   this.updateIssues();
-    // }, 2000);
-  }
+  loadData() {}
   handleSubmit = async e => {
     e.preventDefault();
-    console.log(e.target.elements.email.value);
-    console.log(e.target.elements.password.value);
     let params = {
       username: e.target.elements.email.value,
       password: e.target.elements.password.value
     };
     let result = await loginApi.login(params);
-    console.log(result);
     localStorage.setItem(params.username, result.data.token);
     this.props.history.push("login");
   };

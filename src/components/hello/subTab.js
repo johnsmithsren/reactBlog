@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-31 13:33:36
- * @LastEditTime: 2019-08-03 17:34:12
+ * @LastEditTime: 2019-08-03 22:49:37
  * @Description: 博客内容组件
  */
 
@@ -18,7 +18,7 @@ import Dialogue from "../dialogue";
 import contentApi from "../../axiosApi/content";
 import Pdf from "./pdf";
 const _ = require("lodash");
-
+const uuidv4 = require("uuid/v4");
 // 定义一个 hello 组件
 class SubBlogTab extends Component {
   constructor(props) {
@@ -90,37 +90,43 @@ class SubBlogTab extends Component {
     if (this.props.type === "blog") {
       blogRow = this.props.contentList.map(content => (
         <>
-          <Row key={content.id} md={12}>
-            <Col key={content.id}>
-              <ListGroup variant="flush" key={content.id}>
+          <Row key={uuidv4()} md={12}>
+            <Col key={uuidv4()}>
+              <ListGroup variant="flush" key={uuidv4()}>
                 <ListGroup.Item
                   variant="light"
-                  bsSize="sm"
-                  key={content.id}
+                  bssize="sm"
+                  key={uuidv4()}
                   onClick={k => this.setKey(k)}
                   action
                 >
                   <Row>
-                    <Col href={`#${content.id}`} onClick={k => this.setKey(k)}>
+                    <Col
+                      href={`#${content.id}`}
+                      key={uuidv4()}
+                      onClick={k => this.setKey(k)}
+                    >
                       {content.title}
                     </Col>
-                    <Col md={{ offset: 2, span: 2 }}>
+                    <Col key={uuidv4()} md={{ offset: 2, span: 2 }}>
                       <DropdownButton
                         title="操作"
                         variant="flush"
                         id={`dropdown-variants`}
-                        key="Secondary"
+                        key={uuidv4()}
                       >
                         <Dropdown.Item
                           eventKey="1"
                           prefix="edit"
                           handle="open"
+                          key={uuidv4()}
                           onClick={e => this.handleDropdownClick(e, content)}
                         >
                           编辑
                         </Dropdown.Item>
                         <Dropdown.Item
                           eventKey="2"
+                          key={uuidv4()}
                           prefix="delete"
                           onClick={e => this.handleDropdownClick(e, content)}
                         >
@@ -128,6 +134,7 @@ class SubBlogTab extends Component {
                         </Dropdown.Item>
                         <Dropdown.Item
                           eventKey="3"
+                          key={uuidv4()}
                           prefix="create"
                           onClick={e => this.handleDropdownClick(e, content)}
                         >
@@ -140,10 +147,10 @@ class SubBlogTab extends Component {
               </ListGroup>
             </Col>
           </Row>
-          <Row key={content.id} md={8}>
-            <Col key={content.id}>
-              <Tab.Content key={content.id}>
-                <Tab.Pane key={content.id} eventKey={"#" + content.id}>
+          <Row key={uuidv4()} md={8}>
+            <Col key={uuidv4()}>
+              <Tab.Content key={uuidv4()}>
+                <Tab.Pane key={uuidv4()} eventKey={"#" + content.id}>
                   {content.content}
                 </Tab.Pane>
               </Tab.Content>
@@ -155,7 +162,10 @@ class SubBlogTab extends Component {
 
     return this.props.type === "blog" ? (
       <>
-        <Tab.Container id="list-group-blog" activeKey={this.state.keyPath}>
+        <Tab.Container
+          id="list-group-blog"
+          defaultActiveKey={this.state.keyPath}
+        >
           {blogRow}
         </Tab.Container>
         <Dialogue

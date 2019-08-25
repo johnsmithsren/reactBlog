@@ -1,12 +1,12 @@
 /*
  * @Auther: renjm
  * @Date: 2019-08-01 13:09:44
- * @LastEditTime: 2019-08-01 21:53:48
+ * @LastEditTime: 2019-08-23 21:18:38
  * @Description: 获取漫画相关信息
  */
 
 import Axios from "./axios";
-const _ = require("lodash");
+// const _ = require("lodash");
 class ComicManager {
   constructor() {
     this._axios = new Axios();
@@ -18,8 +18,8 @@ class ComicManager {
    * @return:
    */
 
-  listComic() {
-    return this._axios.get(`/list/comic`);
+  async listComic() {
+    return await this._axios.get(`/list/comic`);
   }
 
   /**
@@ -27,8 +27,8 @@ class ComicManager {
    * @param {type}
    * @return:
    */
-  getTopComic() {
-    return this._axios.get(`/list/top/comic`);
+  async getTopComic() {
+    return await this._axios.get(`/list/top/comic`);
   }
 }
 

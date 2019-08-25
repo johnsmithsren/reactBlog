@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-26 08:37:36
- * @LastEditTime: 2019-08-01 21:42:24
+ * @LastEditTime: 2019-08-03 22:38:43
  * @Description:
  */
 import React, { Component } from "react";
@@ -9,8 +9,9 @@ import React, { Component } from "react";
 import { Navbar, Nav, Form, Button, FormControl } from "react-bootstrap";
 import BlogList from "../ListGroup";
 import Hello from "../hello";
-import { Col, ButtonToolbar, Row } from "react-bootstrap";
-const _ = require("lodash");
+import { Col, Row } from "react-bootstrap";
+// const uuidv4 = require("uuid/v4");
+// const _ = require("lodash");
 class BlogNavBar extends Component {
   constructor() {
     super();
