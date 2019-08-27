@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-31 22:21:33
- * @LastEditTime: 2019-08-25 09:56:48
+ * @LastEditTime: 2019-08-27 13:35:20
  * @Description: 加载pdf文档
  */
 
@@ -10,9 +10,7 @@ import { Document, Page, pdfjs } from "react-pdf";
 import { Button, DropdownButton, Dropdown, Col, Row } from "react-bootstrap";
 // import { Row } from "antd";
 // import { expression } from "@babel/template";
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${
-  pdfjs.version
-}/pdf.worker.js`;
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 class Pdf extends Component {
   constructor(props) {
     super(props);
@@ -61,13 +59,6 @@ class Pdf extends Component {
               key="Secondary"
             >
               {comicList}
-              {/* <Dropdown.Item eventKey="1">Action</Dropdown.Item>
-              <Dropdown.Item eventKey="2">Another action</Dropdown.Item>
-              <Dropdown.Item eventKey="3" active>
-                Active Item
-              </Dropdown.Item>
-              <Dropdown.Divider />
-              <Dropdown.Item eventKey="4">Separated link</Dropdown.Item> */}
             </DropdownButton>
           </Col>
         </Row>
@@ -76,7 +67,7 @@ class Pdf extends Component {
           <Row>
             <Col>
               <Document
-                file={require(`../../pdfsource/${this.state.comicPath}`)}
+                file={`${this.state.comicPath}`}
                 onLoadSuccess={this.onDocumentLoadSuccess}
               >
                 <Page pageNumber={pageNumber} />
