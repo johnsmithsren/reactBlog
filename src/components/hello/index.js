@@ -1,3 +1,9 @@
+/*
+ * @Auther: renjm
+ * @Date: 2019-07-24 20:16:12
+ * @LastEditTime: 2019-08-28 22:36:23
+ * @Description:
+ */
 import React, { Component } from "react";
 // import { Row } from "antd";
 // 定义一个行组件
@@ -6,7 +12,7 @@ import SubTab from "./subTab";
 // import { Col } from "antd";
 import contentApi from "../../axiosApi/content";
 import comicApi from "../../axiosApi/comic";
-
+// const uuidv4 = require("uuid/v4");
 // import { Table } from "react-bootstrap";
 // 定义一个 hello 组件
 class Hello extends Component {
@@ -40,7 +46,11 @@ class Hello extends Component {
     if (previousProps.type !== this.props.type) {
       if (this.props.type === "comic") {
         await this.getComic();
-      } else {
+      }
+      if (this.props.type === "blog") {
+        await this.getContent();
+      }
+      if (this.props.type === "create") {
         await this.getContent();
       }
 

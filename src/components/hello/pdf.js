@@ -1,13 +1,14 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-31 22:21:33
- * @LastEditTime: 2019-08-27 13:35:20
+ * @LastEditTime: 2019-08-28 22:37:10
  * @Description: 加载pdf文档
  */
 
 import React, { Component } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import { Button, DropdownButton, Dropdown, Col, Row } from "react-bootstrap";
+const uuidv4 = require("uuid/v4");
 // import { Row } from "antd";
 // import { expression } from "@babel/template";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -38,6 +39,7 @@ class Pdf extends Component {
     let comicList = this.props.comicList.map(comic => (
       <>
         <Dropdown.Item
+          key={uuidv4()}
           size="sm"
           eventKey={comic.id}
           path={comic.path}
@@ -49,8 +51,8 @@ class Pdf extends Component {
     ));
     return (
       <>
-        <Row>
-          <Col>
+        <Row key={uuidv4()}>
+          <Col key={uuidv4()}>
             <DropdownButton
               size="sm"
               title={this.state.comicTitle}

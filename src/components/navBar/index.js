@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-26 08:37:36
- * @LastEditTime: 2019-08-03 22:38:43
+ * @LastEditTime: 2019-08-28 10:11:06
  * @Description:
  */
 import React, { Component } from "react";
@@ -65,13 +65,9 @@ class BlogNavBar extends Component {
                 <Nav.Link onClick={this.updateNavBarType.bind(this, "comic")}>
                   漫画
                 </Nav.Link>
-                {/* {_.get(this.state, "type") === "comic" ? (
-                  <Nav.Link onClick={this.updateNavBarType.bind(this, "comic")}>
-                    创建
-                  </Nav.Link>
-                ) : (
-                  []
-                )} */}
+                <Nav.Link onClick={this.updateNavBarType.bind(this, "create")}>
+                  写作
+                </Nav.Link>
 
                 {/* <Nav.Link href="#pricing">Pricing</Nav.Link> */}
               </Nav>

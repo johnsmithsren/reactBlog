@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-31 13:33:36
- * @LastEditTime: 2019-08-03 22:49:37
+ * @LastEditTime: 2019-08-28 22:38:05
  * @Description: 博客内容组件
  */
 
@@ -17,6 +17,7 @@ import {
 import Dialogue from "../dialogue";
 import contentApi from "../../axiosApi/content";
 import Pdf from "./pdf";
+import Editor from "../editor/index";
 const _ = require("lodash");
 const uuidv4 = require("uuid/v4");
 // 定义一个 hello 组件
@@ -159,24 +160,38 @@ class SubBlogTab extends Component {
         </>
       ));
     }
+    let returnResult = <p>敬请期待</p>;
+    if (this.props.type === "blog") {
+      returnResult = (
+        <>
+          <Tab.Container
+            id="list-group-blog"
+            defaultActiveKey={this.state.keyPath}
+          >
+            {blogRow}
+          </Tab.Container>
+          <Dialogue
+            handleDropdownClick={this.handleDropdownClick.bind(this)}
+            contentInfo={this.state.contentInfo}
+            handleShow={this.state.handleShow}
+          />
+        </>
+      );
+    }
+    if (this.props.type === "comic") {
+      returnResult = <Pdf comicList={this.props.comicList} />;
+    }
 
-    return this.props.type === "blog" ? (
-      <>
-        <Tab.Container
-          id="list-group-blog"
-          defaultActiveKey={this.state.keyPath}
-        >
-          {blogRow}
-        </Tab.Container>
-        <Dialogue
-          handleDropdownClick={this.handleDropdownClick.bind(this)}
-          contentInfo={this.state.contentInfo}
-          handleShow={this.state.handleShow}
+    if (this.props.type === "create") {
+      returnResult = (
+        <Editor
+          getComic={this.props.getContent.bind(this)}
+          getContent={this.props.getComic.bind(this)}
         />
-      </>
-    ) : (
-      <Pdf comicList={this.props.comicList} />
-    );
+      );
+    }
+
+    return returnResult;
   }
 }
 export default SubBlogTab;
