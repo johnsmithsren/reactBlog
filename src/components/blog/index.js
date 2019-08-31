@@ -1,15 +1,15 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-24 20:16:12
- * @LastEditTime: 2019-08-31 08:47:45
+ * @LastEditTime: 2019-08-31 10:57:28
  * @Description:
  */
 import React, { Component } from "react";
-import SubTab from "./subTab";
+import { withRouter } from "react-router-dom";
+import BlogList from "./blogList";
 import contentApi from "../../axiosApi/content";
-import { BrowserRouter as Router } from "react-router-dom";
 // 定义一个 hello 组件
-class Hello extends Component {
+class Blog extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -38,15 +38,13 @@ class Hello extends Component {
   }
   render() {
     return (
-      <Router>
-        <SubTab
-          contentList={this.state.contentList}
-          type={this.props.type}
-          comicList={this.state.comicList}
-          getContent={this.getContent.bind(this)}
-        />
-      </Router>
+      <BlogList
+        contentList={this.state.contentList}
+        type={this.props.type}
+        comicList={this.state.comicList}
+        getContent={this.getContent.bind(this)}
+      />
     );
   }
 }
-export default Hello;
+export default withRouter(Blog);

@@ -1,13 +1,12 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-26 08:37:36
- * @LastEditTime: 2019-08-30 21:04:16
+ * @LastEditTime: 2019-08-31 09:29:42
  * @Description: 主要是存放博客 和 漫画的最新更新内容
  */
 import contentApi from "../../axiosApi/content";
 import comicApi from "../../axiosApi/comic";
 import React, { Component } from "react";
-import { BrowserRouter as Router } from "react-router-dom";
 import { ListGroup, Row, Col, Badge } from "react-bootstrap";
 const uuidv4 = require("uuid/v4");
 class BlogList extends Component {
@@ -35,17 +34,15 @@ class BlogList extends Component {
 
   render() {
     return (
-      <Router>
-        <Row>
-          <Col sm={{ offset: 4 }}>
-            <Badge variant="secondary">最新更新</Badge>
-            <ListGroup variant="flush">
-              {this.state.topContent}
-              {this.state.topComic}
-            </ListGroup>
-          </Col>
-        </Row>
-      </Router>
+      <Row>
+        <Col>
+          <Badge variant="secondary">最新更新</Badge>
+          <ListGroup variant="flush">
+            {this.state.topContent}
+            {this.state.topComic}
+          </ListGroup>
+        </Col>
+      </Row>
     );
   }
 }

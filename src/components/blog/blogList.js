@@ -1,18 +1,13 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-31 13:33:36
- * @LastEditTime: 2019-08-30 21:25:35
+ * @LastEditTime: 2019-08-31 10:57:43
  * @Description: 博客内容组件
  */
 
 import React, { Component } from "react";
-import {
-  withRouter,
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Redirect
-} from "react-router-dom";
+// import PropTypes from "prop-types";
+import { withRouter, Redirect } from "react-router-dom";
 // import createBrowserHistory from "history/createBrowserHistory";
 
 import {
@@ -23,11 +18,7 @@ import {
   // DropdownButton,
   // Dropdown
 } from "react-bootstrap";
-// import Dialogue from "../dialogue";
 import contentApi from "../../axiosApi/content";
-import Content from "../blogContent";
-import Pdf from "../comicPdf/pdf";
-import Editor from "../blogContentEditor/index";
 const _ = require("lodash");
 const uuidv4 = require("uuid/v4");
 
@@ -43,7 +34,8 @@ class SubBlogTab extends Component {
       type: props.type,
       keyPath: "#",
       handleShow: false,
-      redirect: false
+      redirect: false,
+      redirectToReferrer: false
     };
   }
   // async componentWillMount() {}
@@ -119,16 +111,15 @@ class SubBlogTab extends Component {
         <>
           <Row key={uuidv4()} md={12}>
             <Col key={uuidv4()}>
-              <ListGroup variant="flush" key={uuidv4()}>
-                <Link to="/show">
-                  <ListGroup.Item
-                    variant="light"
-                    bssize="sm"
-                    onClick={e => this.changePropsType(e, content)}
-                  >
-                    {content.title}
-                  </ListGroup.Item>
-                </Link>
+              <ListGroup key={uuidv4()} variant="flush">
+                <ListGroup.Item
+                  key={uuidv4()}
+                  variant="light"
+                  bssize="sm"
+                  onClick={e => this.redirect(e, content)}
+                >
+                  {content.title}
+                </ListGroup.Item>
               </ListGroup>
             </Col>
           </Row>
@@ -138,18 +129,21 @@ class SubBlogTab extends Component {
     return blogRow;
   }
 
-  //   if (this.props.type === "create") {
-  //     returnResult = (
-  //       <Editor
-  //         getComic={this.props.getContent.bind(this)}
-  //         getContent={this.props.getComic.bind(this)}
-  //       />
-  //     );
-  //   }
-  //   return returnResult;
-  // }
+  redirect = (e, content) => {
+    this.setState({ redirectToReferrer: true, currentContent: content });
+  };
 
   render() {
+    let { from } = this.props.location.state || {
+      from: { pathname: "/show", query: this.state.currentContent }
+    };
+    let { redirectToReferrer } = this.state;
+    const { history } = this.props;
+
+    if (redirectToReferrer) {
+      history.push(from);
+      this.setState({ redirectToReferrer: false });
+    }
     return (
       <>
         <Tab.Container
