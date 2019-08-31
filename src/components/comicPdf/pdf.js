@@ -1,17 +1,17 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-31 22:21:33
- * @LastEditTime: 2019-08-28 22:37:10
+ * @LastEditTime: 2019-08-30 21:35:37
  * @Description: 加载pdf文档
  */
 
 import React, { Component } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import { Button, DropdownButton, Dropdown, Col, Row } from "react-bootstrap";
+import comicApi from "../../axiosApi/comic";
 const uuidv4 = require("uuid/v4");
-// import { Row } from "antd";
-// import { expression } from "@babel/template";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+
 class Pdf extends Component {
   constructor(props) {
     super(props);
@@ -21,8 +21,12 @@ class Pdf extends Component {
       comicTitle: "漫画列表",
       comicPath: null
     };
+    this.getComic = this.getComic.bind(this);
   }
 
+  async componentDidMount() {
+    await this.getComic();
+  }
   onDocumentLoadSuccess = ({ numPages }) => {
     this.setState({ numPages });
   };
@@ -30,25 +34,35 @@ class Pdf extends Component {
     let comicPath = path;
     this.setState({ comicTitle: title, comicPath: comicPath });
   }
+  async getComic() {
+    let comicInfo = await comicApi.listComic();
+    this.setState({ comicList: comicInfo });
+    // return result;
+  }
   goToPrevPage = () =>
     this.setState(state => ({ pageNumber: state.pageNumber - 1 }));
   goToNextPage = () =>
     this.setState(state => ({ pageNumber: state.pageNumber + 1 }));
   render() {
     const { pageNumber, numPages } = this.state;
-    let comicList = this.props.comicList.map(comic => (
-      <>
-        <Dropdown.Item
-          key={uuidv4()}
-          size="sm"
-          eventKey={comic.id}
-          path={comic.path}
-          onClick={e => this.changeValue(e.target.textContent, comic.path)}
-        >
-          {comic.title}
-        </Dropdown.Item>
-      </>
-    ));
+
+    let comicList = <p>暂无更新</p>;
+    if (this.state.comicList) {
+      comicList = this.state.comicList.map(comic => (
+        <>
+          <Dropdown.Item
+            key={uuidv4()}
+            size="sm"
+            eventKey={comic.id}
+            path={comic.path}
+            onClick={e => this.changeValue(e.target.textContent, comic.path)}
+          >
+            {comic.title}
+          </Dropdown.Item>
+        </>
+      ));
+    }
+
     return (
       <>
         <Row key={uuidv4()}>

@@ -1,22 +1,22 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-26 08:37:36
- * @LastEditTime: 2019-08-23 13:57:27
- * @Description:
+ * @LastEditTime: 2019-08-30 21:04:16
+ * @Description: 主要是存放博客 和 漫画的最新更新内容
  */
 import contentApi from "../../axiosApi/content";
 import comicApi from "../../axiosApi/comic";
 import React, { Component } from "react";
-// import Hello from "../hello";
+import { BrowserRouter as Router } from "react-router-dom";
 import { ListGroup, Row, Col, Badge } from "react-bootstrap";
-// import Hello from "../hello";
-// const _ = require("lodash");
 const uuidv4 = require("uuid/v4");
 class BlogList extends Component {
   constructor(props) {
     super(props);
-    this.state = { topContent: <p>没有更新</p>, topComic: <p>没有更新</p> };
-    // this.updateIssues = this.updateIssues.bind(this);
+    this.state = {
+      topContent: <p>漫画没有更新</p>,
+      topComic: <p>博客没有更新</p>
+    };
   }
 
   async componentDidMount() {
@@ -35,15 +35,17 @@ class BlogList extends Component {
 
   render() {
     return (
-      <Row>
-        <Col sm={{ offset: 4 }}>
-          <Badge variant="secondary">最新更新</Badge>
-          <ListGroup variant="flush">
-            {this.state.topContent}
-            {this.state.topComic}
-          </ListGroup>
-        </Col>
-      </Row>
+      <Router>
+        <Row>
+          <Col sm={{ offset: 4 }}>
+            <Badge variant="secondary">最新更新</Badge>
+            <ListGroup variant="flush">
+              {this.state.topContent}
+              {this.state.topComic}
+            </ListGroup>
+          </Col>
+        </Row>
+      </Router>
     );
   }
 }

@@ -1,3 +1,9 @@
+/*
+ * @Auther: renjm
+ * @Date: 2019-08-02 21:53:50
+ * @LastEditTime: 2019-08-30 21:37:32
+ * @Description:
+ */
 import React, { Component } from "react";
 import contentApi from "../../axiosApi/content";
 import { Modal, Button, InputGroup, FormControl } from "react-bootstrap";

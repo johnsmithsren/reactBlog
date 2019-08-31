@@ -1,5 +1,11 @@
+/*
+ * @Auther: renjm
+ * @Date: 2019-08-23 21:23:08
+ * @LastEditTime: 2019-08-30 20:56:19
+ * @Description:
+ */
 import React, { Component } from "react";
-// import Hello from "../hello";
+import { Redirect } from "react-router-dom";
 import { Col, Row, Form, Button } from "react-bootstrap";
 import loginApi from "../../axiosApi/login";
 // const _ = require("lodash");
@@ -28,10 +34,17 @@ class Login extends Component {
     };
     let result = await loginApi.login(params);
     localStorage.setItem(params.username, result.data.token);
-    this.props.history.push("login");
+    this.setState({ redirectToReferrer: true });
   };
 
+  state = { redirectToReferrer: false };
+
   render() {
+    let { from } = this.props.location.state || { from: { pathname: "/" } };
+    let { redirectToReferrer } = this.state;
+
+    if (redirectToReferrer) return <Redirect to={from} />;
+
     // const info = this.props.info;
     return (
       <>
