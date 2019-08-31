@@ -8,6 +8,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { Row, Col, Container, Button } from "react-bootstrap";
 import contentApi from "../../axiosApi/content";
+import "./blogContent.css";
 const _ = require("lodash");
 
 class Content extends Component {
@@ -26,8 +27,8 @@ class Content extends Component {
     const { history } = this.props;
     history.push(from);
   }
-  delete() {
-    contentApi.deleteContent(_.get(this, "props.location.query.id"));
+  async delete() {
+    await contentApi.deleteContent(_.get(this, "props.location.query.id"));
     let from = {
       pathname: `/blog`
     };
@@ -57,12 +58,18 @@ class Content extends Component {
           </Row>
           <Row>
             <Col md="12">
-              <div dangerouslySetInnerHTML={{ __html: title }} />
+              <div
+                className="title"
+                dangerouslySetInnerHTML={{ __html: title }}
+              />
             </Col>
           </Row>
           <Row>
             <Col md="12">
-              <div dangerouslySetInnerHTML={{ __html: content }} />
+              <div
+                className="content"
+                dangerouslySetInnerHTML={{ __html: content }}
+              />
             </Col>
           </Row>
         </Container>

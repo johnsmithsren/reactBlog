@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-08-23 21:23:08
- * @LastEditTime: 2019-08-31 17:34:27
+ * @LastEditTime: 2019-08-31 20:01:33
  * @Description:
  */
 import React, { Component } from "react";
@@ -32,32 +32,15 @@ class BlogLayout extends Component {
   constructor() {
     super();
     this.state = {
-      issues: [{ id: 1, name: "hhh", Col: "这是一段评论" }],
       loadEdit: false
     };
     this.About = this.About.bind(this);
     this.Users = this.Users.bind(this);
   }
 
-  componentDidMount() {
-    this.loadData();
-    // Subscribe to changes
-  }
-
   changeEditType() {
     this.setState({ loadEdit: true });
   }
-
-  componentWillUnmount() {}
-  componentDidUpdate(pre) {
-    const oldQuery = pre.location.query;
-    const newQuery = this.props.location.query;
-    if (oldQuery.status === newQuery.status) {
-      return;
-    }
-    this.loadData();
-  }
-  loadData() {}
 
   /**
    * @description: 关于页面
@@ -98,7 +81,7 @@ class BlogLayout extends Component {
           </Row>
           <br />
           <Row>
-            <Col>
+            <Col md="8">
               <Navbar bg="light" variant="light">
                 <Link to="/blog">
                   <Navbar.Brand>首页</Navbar.Brand>
@@ -112,7 +95,10 @@ class BlogLayout extends Component {
                 <Link to="/create">
                   <Navbar.Brand>写作</Navbar.Brand>
                 </Link>
-
+              </Navbar>
+            </Col>
+            <Col>
+              <Navbar bg="light" variant="light">
                 <Form inline>
                   <FormControl
                     type="text"

@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-31 22:21:33
- * @LastEditTime: 2019-08-31 10:54:07
+ * @LastEditTime: 2019-08-31 22:53:08
  * @Description: 加载pdf文档
  */
 
@@ -59,7 +59,7 @@ class Pdf extends Component {
       ? this.state.comicList.map(comic => (
           <>
             <Dropdown.Item
-              key={uuidv4()}
+              key={comic.id}
               size="sm"
               eventKey={comic.id}
               path={comic.path}

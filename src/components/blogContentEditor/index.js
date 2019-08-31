@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-08-28 09:07:33
- * @LastEditTime: 2019-08-31 19:08:45
+ * @LastEditTime: 2019-08-31 22:15:41
  * @Description: 使用的是一个富文本编辑器插件
  */
 import "braft-editor/dist/index.css";
@@ -46,6 +46,7 @@ export default class Editor extends Component {
   async submitContent() {
     // 在编辑器获得焦点时按下ctrl+s会执行此方法
     // 编辑器内容提交到服务端之前，可直接调用editorState.toHTML()来获取HTML格式的内容
+    const { history } = this.props;
     let title = this.refs.title.value;
     let id = _.get(this, "props.match.params.id");
     const htmlContent = this.state.editorState.toHTML();
@@ -60,7 +61,6 @@ export default class Editor extends Component {
         let from = {
           pathname: `/blog`
         };
-        const { history } = this.props;
         history.push(from);
       }
     } else {
@@ -69,6 +69,10 @@ export default class Editor extends Component {
         title: title
       };
       await contentApi.createContent(contentInfo);
+      let from = {
+        pathname: `/blog`
+      };
+      history.push(from);
     }
   }
 
@@ -104,12 +108,6 @@ export default class Editor extends Component {
                 value={editorState}
                 onChange={this.handleEditorChange}
               />
-            </Col>
-          </Form.Group>
-
-          <Form.Group as={Row} controlId="formHorizontalCheck">
-            <Col sm={{ span: 10, offset: 2 }}>
-              <Form.Check label="Remember me" />
             </Col>
           </Form.Group>
 

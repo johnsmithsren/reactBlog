@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-24 20:16:12
- * @LastEditTime: 2019-08-31 14:04:53
+ * @LastEditTime: 2019-08-31 22:26:19
  * @Description:
  */
 import React, { Component } from "react";
@@ -14,8 +14,7 @@ class Blog extends Component {
     super(props);
     this.state = {
       type: props.type,
-      contentList: [],
-      comicList: []
+      contentList: []
     };
     this.getContent = this.getContent.bind(this);
   }
@@ -32,18 +31,11 @@ class Blog extends Component {
   async componentDidUpdate(previousProps, previousState) {
     if (previousProps.type !== this.props.type) {
       await this.getContent();
-
-      // this.setState({ contentList: result });
     }
   }
   render() {
     return (
-      <BlogList
-        contentList={this.state.contentList}
-        type={this.props.type}
-        comicList={this.state.comicList}
-        getContent={this.getContent.bind(this)}
-      />
+      <BlogList contentList={this.state.contentList} type={this.props.type} />
     );
   }
 }

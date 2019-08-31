@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-27 12:56:42
- * @LastEditTime: 2019-08-31 19:32:04
+ * @LastEditTime: 2019-08-31 22:21:31
  * @Description: 对于axios进行统一封装
  */
 const axios = require("axios");
@@ -128,10 +128,10 @@ class Axios {
         // always executed
       });
   }
-  delete(url, params = {}) {
+  async delete(url, params = {}) {
     // 开始 loading
     // proxyUtil.startLoading();
-    return this._axios
+    return await this._axios
       .delete(url, {
         params: params,
         validateStatus: function(status) {

@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-30 13:00:26
- * @LastEditTime: 2019-08-31 19:02:20
+ * @LastEditTime: 2019-08-31 22:20:57
  * @Description:
  */
 
@@ -34,7 +34,7 @@ class ContentManger {
    * @return:
    */
   deleteContent(id) {
-    return this._axios.delete(`/delete/content`, id);
+    return this._axios.delete(`/delete/content`, { id: id });
   }
 
   /**

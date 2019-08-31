@@ -1,32 +1,17 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-31 13:33:36
- * @LastEditTime: 2019-08-31 14:32:42
+ * @LastEditTime: 2019-08-31 22:27:47
  * @Description: 博客内容组件
  */
 
 import React, { Component } from "react";
-// import PropTypes from "prop-types";
 import { withRouter, Redirect } from "react-router-dom";
-// import createBrowserHistory from "history/createBrowserHistory";
-
-import {
-  ListGroup,
-  Row,
-  Tab,
-  Col
-  // DropdownButton,
-  // Dropdown
-} from "react-bootstrap";
-import contentApi from "../../axiosApi/content";
-const _ = require("lodash");
+import { ListGroup, Row, Tab, Col } from "react-bootstrap";
+// const _ = require("lodash");
 const uuidv4 = require("uuid/v4");
 
-// const history = createBrowserHistory();
-// const ReactDOMServer = require("react-dom/server");
-// const HtmlToReactParser = require("html-to-react").Parser;
-
-// 定义一个 hello 组件
+// 定义一个 博客列表 组件
 class SubBlogTab extends Component {
   constructor(props) {
     super(props);
@@ -38,62 +23,42 @@ class SubBlogTab extends Component {
       redirectToReferrer: false
     };
   }
-  // async componentWillMount() {}
   async componentDidMount() {}
 
   changePropsType(e, contentInfo) {
     this.setState({ redirect: true });
   }
-  setKey(e) {
-    let _keypath = _.get(this.state, "keyPath");
-    if (e.target.localName === "div") {
-      if (
-        _.get(e, "target.attributes.href.value") !== undefined &&
-        _keypath !== _.get(e, "target.attributes.href.value")
-      ) {
-        this.setState({ keyPath: e.target.attributes.href.value });
-      } else {
-        this.setState({ keyPath: "#" });
-      }
-    } else {
-      if (_keypath !== e.target.hash) {
-        this.setState({ keyPath: e.target.hash });
-      } else {
-        this.setState({ keyPath: "#" });
-      }
-    }
-  }
 
-  async handleDropdownClick(e, content) {
-    if (_.get(e, "target.attributes.prefix.value") === "edit") {
-      this.setState({
-        handleShow: true,
-        contentInfo: content
-      });
-    }
-    if (_.get(e, "target.attributes.prefix.value") === "create") {
-      this.setState({
-        handleShow: true,
-        contentInfo: []
-      });
-    }
-    if (_.get(e, "target.attributes.prefix.value") === "delete") {
-      await contentApi.deleteContent({ id: _.get(content, "id") });
-      await this.props.getContent();
-      // await this.props.getComic();
-    }
-    if (_.get(e, "target.attributes.handle.value") === "open") {
-      this.setState({ handleShow: true });
-    }
-    if (
-      e === "close" ||
-      _.get(e, "target.attributes.handle.value") === "close"
-    ) {
-      this.setState({ handleShow: false });
-      await this.props.getContent();
-      await this.props.getComic();
-    }
-  }
+  // async handleDropdownClick(e, content) {
+  //   if (_.get(e, "target.attributes.prefix.value") === "edit") {
+  //     this.setState({
+  //       handleShow: true,
+  //       contentInfo: content
+  //     });
+  //   }
+  //   if (_.get(e, "target.attributes.prefix.value") === "create") {
+  //     this.setState({
+  //       handleShow: true,
+  //       contentInfo: []
+  //     });
+  //   }
+  //   if (_.get(e, "target.attributes.prefix.value") === "delete") {
+  //     await contentApi.deleteContent({ id: _.get(content, "id") });
+  //     await this.props.getContent();
+  //     // await this.props.getComic();
+  //   }
+  //   if (_.get(e, "target.attributes.handle.value") === "open") {
+  //     this.setState({ handleShow: true });
+  //   }
+  //   if (
+  //     e === "close" ||
+  //     _.get(e, "target.attributes.handle.value") === "close"
+  //   ) {
+  //     this.setState({ handleShow: false });
+  //     await this.props.getContent();
+  //     await this.props.getComic();
+  //   }
+  // }
 
   /**
    * @description:  构建 博客的内容
@@ -118,7 +83,12 @@ class SubBlogTab extends Component {
                   bssize="sm"
                   onClick={e => this.redirect(e, content)}
                 >
-                  {content.title}
+                  <Col key={uuidv4()} md="8">
+                    <h5 key={uuidv4()}>{content.title}</h5>
+                  </Col>
+                  <Col key={uuidv4()}>
+                    {new Date(content.createTime * 1000).toLocaleString()}
+                  </Col>
                 </ListGroup.Item>
               </ListGroup>
             </Col>
