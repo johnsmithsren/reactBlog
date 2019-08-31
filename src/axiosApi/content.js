@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-30 13:00:26
- * @LastEditTime: 2019-08-23 14:01:28
+ * @LastEditTime: 2019-08-31 19:02:20
  * @Description:
  */
 
@@ -21,13 +21,20 @@ class ContentManger {
   }
 
   /**
-   * @description: 编辑博客
+   * @description: 获取博客内容
    * @param {type}
    * @return:
    */
-
-  editContent(contentInfo) {
-    return this._axios.post(`/edit/content`, contentInfo);
+  getContent(id) {
+    return this._axios.get(`/get/content`, { id: id });
+  }
+  /**
+   * @description: 删除博客
+   * @param {type}
+   * @return:
+   */
+  deleteContent(id) {
+    return this._axios.delete(`/delete/content`, id);
   }
 
   /**
@@ -35,8 +42,8 @@ class ContentManger {
    * @param {type}
    * @return:
    */
-  deleteContent(id) {
-    return this._axios.delete(`/delete/content`, id);
+  async editContent(contentInfo) {
+    return this._axios.post(`/edit/content`, contentInfo);
   }
 
   /**

@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-27 12:56:42
- * @LastEditTime: 2019-08-23 14:01:05
+ * @LastEditTime: 2019-08-31 19:32:04
  * @Description: 对于axios进行统一封装
  */
 const axios = require("axios");
@@ -12,7 +12,7 @@ class Axios {
     this._axios = axios.create({
       baseURL: `${config.axios.url}:${config.axios.port}`
     });
-    this.init();
+    // this.init();
   }
   init() {
     // 请求过滤
@@ -79,18 +79,15 @@ class Axios {
     }
   }
 
-  post(url, params = {}) {
+  async post(url, params = {}) {
     // 开始 loading
     // proxyUtil.startLoading();
-    return this._axios
+    let _getResult = await this._axios
       .post(url, params)
       .then(response => {
-        // 结束 loading
-        // proxyUtil.endLoading();
         return response.data;
       })
       .catch(error => {
-        console.log(error);
         // 异常处理
         // proxyUtil.endLoading();
         // proxyUtil.alertMessage(error);
@@ -98,6 +95,11 @@ class Axios {
       .finally(function() {
         // always executed
       });
+    if (_getResult) {
+      return _getResult;
+    } else {
+      return [];
+    }
   }
 
   put(url, params = {}) {

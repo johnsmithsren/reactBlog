@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-31 13:33:36
- * @LastEditTime: 2019-08-31 10:57:43
+ * @LastEditTime: 2019-08-31 14:32:42
  * @Description: 博客内容组件
  */
 
@@ -135,7 +135,7 @@ class SubBlogTab extends Component {
 
   render() {
     let { from } = this.props.location.state || {
-      from: { pathname: "/show", query: this.state.currentContent }
+      from: { pathname: "/content", query: this.state.currentContent }
     };
     let { redirectToReferrer } = this.state;
     const { history } = this.props;
