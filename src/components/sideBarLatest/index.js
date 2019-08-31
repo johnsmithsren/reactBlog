@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-26 08:37:36
- * @LastEditTime: 2019-08-31 09:29:42
+ * @LastEditTime: 2019-09-01 00:04:53
  * @Description: 主要是存放博客 和 漫画的最新更新内容
  */
 import contentApi from "../../axiosApi/content";
@@ -9,6 +9,7 @@ import comicApi from "../../axiosApi/comic";
 import React, { Component } from "react";
 import { ListGroup, Row, Col, Badge } from "react-bootstrap";
 const uuidv4 = require("uuid/v4");
+const _ = require("lodash");
 class BlogList extends Component {
   constructor(props) {
     super(props);
@@ -25,7 +26,10 @@ class BlogList extends Component {
       <ListGroup.Item key={uuidv4()}>{topcontent.title}</ListGroup.Item>
     ));
     let _topComic = topComic.map(topcomic => (
-      <ListGroup.Item key={uuidv4()}>{topcomic.title}</ListGroup.Item>
+      <ListGroup.Item key={uuidv4()}>
+        {topcomic.title}
+        {_.get(_.split(_.get(topcomic, "path"), "."), "0")}
+      </ListGroup.Item>
     ));
     this.setState({ topContent: _topContent, topComic: _topComic });
   }
