@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-24 20:16:12
- * @LastEditTime: 2019-08-31 14:49:03
+ * @LastEditTime: 2019-09-02 13:49:09
  * @Description:
  */
 import React, { Component } from "react";
@@ -9,13 +9,15 @@ import { withRouter } from "react-router-dom";
 import { Row, Col, Container, Button } from "react-bootstrap";
 import contentApi from "../../axiosApi/content";
 import "./blogContent.css";
+const Markdown = require("react-markdown");
 const _ = require("lodash");
 
 class Content extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      content: _.get(this, "props.location.query.content", "<p>暂无文章</p>")
+      content: _.get(this, "props.location.query.content", "<p>暂无文章</p>"),
+      markdown: false
     };
     // this.getContent = this.getContent.bind(this);
   }
@@ -27,6 +29,14 @@ class Content extends Component {
     const { history } = this.props;
     history.push(from);
   }
+
+  // changeToMarkdown() {
+  //   if (this.state.markdown) {
+  //     this.setState({ markdown: false });
+  //   } else {
+  //     this.setState({ markdown: true });
+  //   }
+  // }
   async delete() {
     await contentApi.deleteContent(_.get(this, "props.location.query.id"));
     let from = {
@@ -42,12 +52,13 @@ class Content extends Component {
       "props.location.query.content",
       "<p>暂无文章</p>"
     );
+    let type = _.get(this, "props.location.query.contentType", "normal");
     let title = _.get(this, "props.location.query.title", "<p>暂无文章</p>");
     return (
       <>
         <Container>
           <Row>
-            <Col md={{ offset: "10" }}>
+            <Col md={{ offset: "9" }}>
               <Button variant="light" onClick={e => this.change(e, "edit")}>
                 编辑
               </Button>
@@ -66,10 +77,14 @@ class Content extends Component {
           </Row>
           <Row>
             <Col md="12">
-              <div
-                className="content"
-                dangerouslySetInnerHTML={{ __html: content }}
-              />
+              {type === "markdown" ? (
+                <Markdown source={content} />
+              ) : (
+                <div
+                  className="content"
+                  dangerouslySetInnerHTML={{ __html: content }}
+                />
+              )}
             </Col>
           </Row>
         </Container>

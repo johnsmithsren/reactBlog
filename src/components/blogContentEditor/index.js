@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-08-28 09:07:33
- * @LastEditTime: 2019-08-31 22:15:41
+ * @LastEditTime: 2019-09-02 14:06:29
  * @Description: 使用的是一个富文本编辑器插件
  */
 import "braft-editor/dist/index.css";
@@ -9,6 +9,10 @@ import React, { Component } from "react";
 import BraftEditor from "braft-editor";
 import contentApi from "../../axiosApi/content";
 import { Row, Button, Form, Col, Container } from "react-bootstrap";
+import "./blogContentEditor.css";
+// const MarkdownEditor = require("react-markdown-editor").MarkdownEditor;
+import MdEditor from "react-markdown-editor-lite";
+import MarkdownIt from "markdown-it";
 const _ = require("lodash");
 export default class Editor extends Component {
   constructor(props) {
@@ -19,8 +23,14 @@ export default class Editor extends Component {
       handleShow: false,
       editorState: null,
       contentId: "",
-      contentTitle: []
+      contentTitle: [],
+      markdownDefault: "写些什么吧！"
     };
+    this.mdParser = new MarkdownIt({
+      html: true,
+      linkify: true,
+      typographer: true
+    });
   }
 
   async componentDidMount() {
@@ -29,10 +39,21 @@ export default class Editor extends Component {
     let htmlContent = "<p>记录每一天</p>";
     if (contentId) {
       let content = await contentApi.getContent(contentId);
-      this.setState({
-        editorState: BraftEditor.createEditorState(_.get(content, "content")),
-        contentTitle: _.get(content, "title")
-      });
+      if (content.contentType === "markdown") {
+        this.setState({
+          markdownDefault: _.get(content, "content"),
+          contentTitle: _.get(content, "title")
+        });
+        this.setState({
+          markdown: true
+        });
+      } else {
+        this.setState({
+          editorState: BraftEditor.createEditorState(_.get(content, "content")),
+          contentTitle: _.get(content, "title")
+        });
+      }
+
       this.setState({
         contentId: contentId
       });
@@ -42,14 +63,30 @@ export default class Editor extends Component {
       });
     }
   }
-
+  changeToMarkdown() {
+    if (this.state.markdown) {
+      this.setState({
+        markdown: false
+      });
+    } else {
+      this.setState({
+        markdown: true
+      });
+    }
+  }
+  handleGetMdValue = () => {};
   async submitContent() {
     // 在编辑器获得焦点时按下ctrl+s会执行此方法
     // 编辑器内容提交到服务端之前，可直接调用editorState.toHTML()来获取HTML格式的内容
     const { history } = this.props;
     let title = this.refs.title.value;
     let id = _.get(this, "props.match.params.id");
-    const htmlContent = this.state.editorState.toHTML();
+    let htmlContent = "";
+    if (this.state.markdown && this.mdEditor) {
+      htmlContent = this.mdEditor.getMdValue();
+    } else {
+      htmlContent = this.state.editorState.toHTML();
+    }
     if (!_.isEmpty(id)) {
       let contentInfo = {
         content: htmlContent,
@@ -84,6 +121,9 @@ export default class Editor extends Component {
     const { editorState } = this.state;
     return (
       <Container>
+        <Button variant="light" onClick={e => this.changeToMarkdown()}>
+          切换{this.state.markdown ? "笔记模式" : "markdown"}
+        </Button>
         <Form>
           <Form.Group as={Row} controlId="formHorizontalTitle">
             <Form.Label column sm={2}>
@@ -103,12 +143,23 @@ export default class Editor extends Component {
               正文内容
             </Form.Label>
 
-            <Col className="border" sm={10}>
-              <BraftEditor
-                value={editorState}
-                onChange={this.handleEditorChange}
-              />
-            </Col>
+            {this.state.markdown ? (
+              <Col className="markdownEditor">
+                <MdEditor
+                  ref={node => (this.mdEditor = node)}
+                  value={this.state.markdownDefault}
+                  renderHTML={text => this.mdParser.render(text)}
+                  onChange={this.handleEditorChange}
+                />
+              </Col>
+            ) : (
+              <Col className="border" sm={10}>
+                <BraftEditor
+                  value={editorState}
+                  onChange={this.handleEditorChange}
+                />
+              </Col>
+            )}
           </Form.Group>
 
           <Form.Group as={Row}>
