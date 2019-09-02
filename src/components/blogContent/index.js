@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-24 20:16:12
- * @LastEditTime: 2019-09-02 13:49:09
+ * @LastEditTime: 2019-09-02 18:07:12
  * @Description:
  */
 import React, { Component } from "react";
@@ -78,7 +78,9 @@ class Content extends Component {
           <Row>
             <Col md="12">
               {type === "markdown" ? (
-                <Markdown source={content} />
+                <div className="content">
+                  <Markdown source={content} />
+                </div>
               ) : (
                 <div
                   className="content"
