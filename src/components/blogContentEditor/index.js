@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-08-28 09:07:33
- * @LastEditTime: 2019-09-02 14:06:29
+ * @LastEditTime: 2019-09-02 17:23:15
  * @Description: 使用的是一个富文本编辑器插件
  */
 import "braft-editor/dist/index.css";
@@ -82,15 +82,19 @@ export default class Editor extends Component {
     let title = this.refs.title.value;
     let id = _.get(this, "props.match.params.id");
     let htmlContent = "";
+    let contentType = "normal";
     if (this.state.markdown && this.mdEditor) {
       htmlContent = this.mdEditor.getMdValue();
+      contentType = "markdown";
     } else {
       htmlContent = this.state.editorState.toHTML();
+      contentType = "normal";
     }
     if (!_.isEmpty(id)) {
       let contentInfo = {
         content: htmlContent,
         title: title,
+        contentType: contentType,
         id: id
       };
       let result = await contentApi.editContent(contentInfo);
@@ -103,7 +107,8 @@ export default class Editor extends Component {
     } else {
       let contentInfo = {
         content: htmlContent,
-        title: title
+        title: title,
+        contentType: contentType
       };
       await contentApi.createContent(contentInfo);
       let from = {
