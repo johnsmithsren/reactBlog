@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-08-28 09:07:33
- * @LastEditTime: 2019-09-02 17:23:15
+ * @LastEditTime: 2019-09-02 22:56:26
  * @Description: 使用的是一个富文本编辑器插件
  */
 import "braft-editor/dist/index.css";

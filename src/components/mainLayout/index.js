@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-08-23 21:23:08
- * @LastEditTime: 2019-08-31 20:01:33
+ * @LastEditTime: 2019-09-03 16:12:27
  * @Description:
  */
 import React, { Component } from "react";
@@ -73,10 +73,25 @@ class BlogLayout extends Component {
                 </Link>
               </h2>
             </Col>
+
             <Col md="2">
               <button>
                 <Link to="/login">登录</Link>
               </button>
+            </Col>
+          </Row>
+          <Row className="justify-content-md-start">
+            <Col>
+              <h6>## 欢迎来star（￣︶￣）↗</h6>
+              <iframe
+                className="githubIframe"
+                frameBorder="0"
+                scrolling="0"
+                width="100px"
+                height="20px"
+                title="## 欢迎来star（￣︶￣）↗"
+                src="https://ghbtns.com/github-btn.html?user=johnsmithsren&repo=reactBlog&type=star&count=true"
+              ></iframe>
             </Col>
           </Row>
           <br />

@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-30 13:00:26
- * @LastEditTime: 2019-08-31 22:20:57
+ * @LastEditTime: 2019-09-02 22:53:44
  * @Description:
  */
 
@@ -48,12 +48,13 @@ class ContentManger {
 
   /**
    * @description: 博客列表
-   * @param {type}
+   * @param {type} pageSize 每页大小
+   * @param {number} page 第几页
    * @return:
    */
 
-  listContent() {
-    return this._axios.get(`/list/content`);
+  listContent(pageSize, page) {
+    return this._axios.get(`/list/content`, { pageSize: pageSize, page: page });
   }
 
   /**
