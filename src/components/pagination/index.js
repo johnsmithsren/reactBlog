@@ -1,21 +1,17 @@
 /*
  * @Auther: renjm
  * @Date: 2019-09-02 22:28:49
- * @LastEditTime: 2019-09-03 16:58:35
+ * @LastEditTime: 2019-09-04 13:18:42
  * @Description:  分页插件
  */
 import React, { Component } from "react";
 import { Pagination } from "react-bootstrap";
-
+const _ = require("lodash");
 // 分页插件类，需要尽可能封装完善，后续需要在多个地方通用
 export default class PaginationHandler extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      paging: {
-        offset: 0,
-        limit: 10
-      },
       active: 1
     };
   }
@@ -25,7 +21,7 @@ export default class PaginationHandler extends Component {
     this.setState({
       active: offset
     });
-    this.props.pageHandler(e.target.id - 1);
+    this.props.pageHandler(_.toNumber(e.target.id));
   };
 
   nextHandler = (e, totalPages) => {
@@ -83,12 +79,13 @@ export default class PaginationHandler extends Component {
   };
 
   buildComponent = props => {
-    const { totalPages } = props;
+    const { totalPages, pageSize } = props;
+    const pages = _.ceil(_.divide(totalPages, _.toNumber(pageSize)));
     const pageNumbers = [];
-    for (let i = 1; i <= totalPages; i++) {
+    for (let i = 1; i <= pages; i++) {
       pageNumbers.push(i);
     }
-    return <>{this.renderPageNumbers(pageNumbers, totalPages)}</>;
+    return <>{this.renderPageNumbers(pageNumbers, pages)}</>;
   };
 
   render() {

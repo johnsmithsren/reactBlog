@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-30 13:00:26
- * @LastEditTime: 2019-09-02 22:53:44
+ * @LastEditTime: 2019-09-04 13:00:32
  * @Description:
  */
 
@@ -54,7 +54,11 @@ class ContentManger {
    */
 
   listContent(pageSize, page) {
-    return this._axios.get(`/list/content`, { pageSize: pageSize, page: page });
+    let result = this._axios.get(`/list/content`, {
+      pageSize: pageSize,
+      page: page
+    });
+    return result;
   }
 
   /**

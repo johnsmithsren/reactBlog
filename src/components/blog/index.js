@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-31 13:33:36
- * @LastEditTime: 2019-09-02 22:57:39
+ * @LastEditTime: 2019-09-04 13:14:34
  * @Description: 博客内容组件
  */
 
@@ -23,8 +23,8 @@ class SubBlogTab extends Component {
       handleShow: false,
       redirect: false,
       redirectToReferrer: false,
-      active: 1,
       contentList: [],
+      active: 1,
       pageSize: 5
     };
   }
@@ -32,16 +32,15 @@ class SubBlogTab extends Component {
   async componentDidMount() {
     await this.getContent();
   }
+
   async getContent() {
-    let contentInfo = await contentApi.listContent(
-      this.state.active,
-      this.state.pageSize
-    );
+    let contentInfo = await contentApi.listContent(this.state.active, 5);
     this.setState({ contentList: contentInfo });
   }
 
-  pageHandler(active) {
-    this.setState({ active: active });
+  async pageHandler(active) {
+    let contentInfo = await contentApi.listContent(active, 5);
+    this.setState({ contentList: contentInfo });
   }
 
   /**
@@ -107,7 +106,8 @@ class SubBlogTab extends Component {
           {this.getBlogRow()}
         </Tab.Container>
         <PaginationHandle
-          totalPages={_.get(this.state.contentList, "length")}
+          totalPages={_.get(this.state.contentList, "0.count")}
+          pageSize="5"
           pageHandler={this.pageHandler.bind(this)}
         />
       </>
