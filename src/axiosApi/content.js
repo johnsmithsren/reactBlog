@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-30 13:00:26
- * @LastEditTime: 2019-09-04 13:00:32
+ * @LastEditTime: 2019-09-04 21:25:34
  * @Description:
  */
 
@@ -53,8 +53,8 @@ class ContentManger {
    * @return:
    */
 
-  listContent(pageSize, page) {
-    let result = this._axios.get(`/list/content`, {
+  async listContent(pageSize, page) {
+    let result = await this._axios.get(`/list/content`, {
       pageSize: pageSize,
       page: page
     });

@@ -1,21 +1,12 @@
 /*
  * @Auther: renjm
  * @Date: 2019-08-23 21:23:08
- * @LastEditTime: 2019-09-03 16:12:27
+ * @LastEditTime: 2019-09-05 11:58:08
  * @Description:
  */
 import React, { Component } from "react";
 import BlogNavBar from "../navigationBar";
-import {
-  Container,
-  Badge,
-  Col,
-  Row,
-  Navbar,
-  Form,
-  Button,
-  FormControl
-} from "react-bootstrap";
+import { Container, Badge, Col, Row, Navbar } from "react-bootstrap";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 // import { HashRouter } from "react-router";
 import Show from "../blogContent";
@@ -97,7 +88,7 @@ class BlogLayout extends Component {
           <br />
           <Row>
             <Col md="8">
-              <Navbar bg="light" variant="light">
+              <Navbar bg="light" variant="white">
                 <Link to="/blog">
                   <Navbar.Brand>首页</Navbar.Brand>
                 </Link>
@@ -112,7 +103,7 @@ class BlogLayout extends Component {
                 </Link>
               </Navbar>
             </Col>
-            <Col>
+            {/* <Col>
               <Navbar bg="light" variant="light">
                 <Form inline>
                   <FormControl
@@ -123,7 +114,7 @@ class BlogLayout extends Component {
                   <Button variant="outline-primary">搜索</Button>
                 </Form>
               </Navbar>
-            </Col>
+            </Col> */}
           </Row>
           <br />
         </Container>

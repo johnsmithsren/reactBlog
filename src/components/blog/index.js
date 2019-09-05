@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-31 13:33:36
- * @LastEditTime: 2019-09-04 13:14:34
+ * @LastEditTime: 2019-09-05 11:44:35
  * @Description: 博客内容组件
  */
 
@@ -25,7 +25,8 @@ class SubBlogTab extends Component {
       redirectToReferrer: false,
       contentList: [],
       active: 1,
-      pageSize: 5
+      pageSize: 5,
+      totalPages: 1
     };
   }
   // async componentWillMount() {}
@@ -35,12 +36,18 @@ class SubBlogTab extends Component {
 
   async getContent() {
     let contentInfo = await contentApi.listContent(this.state.active, 5);
-    this.setState({ contentList: contentInfo });
+    this.setState({
+      contentList: _.get(contentInfo, "rows", []),
+      totalPages: _.get(contentInfo, "count", 1)
+    });
   }
 
   async pageHandler(active) {
     let contentInfo = await contentApi.listContent(active, 5);
-    this.setState({ contentList: contentInfo });
+    this.setState({
+      contentList: _.get(contentInfo, "rows", []),
+      totalPages: _.get(contentInfo, "count", 1)
+    });
   }
 
   /**
@@ -70,7 +77,10 @@ class SubBlogTab extends Component {
                     <h5 key={uuidv4()}>{content.title}</h5>
                   </Col>
                   <Col key={uuidv4()}>
-                    {new Date(content.createTime * 1000).toLocaleString()}
+                    创建于{new Date(content.createTime * 1000).toLocaleString()}
+                  </Col>
+                  <Col key={uuidv4()}>
+                    更新于{new Date(content.updateTime * 1000).toLocaleString()}
                   </Col>
                 </ListGroup.Item>
               </ListGroup>
@@ -106,7 +116,7 @@ class SubBlogTab extends Component {
           {this.getBlogRow()}
         </Tab.Container>
         <PaginationHandle
-          totalPages={_.get(this.state.contentList, "0.count")}
+          totalPages={this.state.totalPages}
           pageSize="5"
           pageHandler={this.pageHandler.bind(this)}
         />
