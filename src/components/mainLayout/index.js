@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-08-23 21:23:08
- * @LastEditTime: 2019-09-05 11:58:08
+ * @LastEditTime: 2019-09-05 15:29:46
  * @Description:
  */
 import React, { Component } from "react";
@@ -57,7 +57,7 @@ class BlogLayout extends Component {
         <Container>
           <br />
           <Row className="justify-content-md-center">
-            <Col md="10">
+            <Col md="12">
               <h2>
                 <Link to="/blog">
                   JIM <Badge variant="secondary">博客</Badge>
@@ -65,15 +65,15 @@ class BlogLayout extends Component {
               </h2>
             </Col>
 
-            <Col md="2">
+            {/* <Col md="2">
               <button>
                 <Link to="/login">登录</Link>
               </button>
-            </Col>
+            </Col> */}
           </Row>
           <Row className="justify-content-md-start">
             <Col>
-              <h6>## 欢迎来star（￣︶￣）↗</h6>
+              <h6> 欢迎来star（￣︶￣）↗</h6>
               <iframe
                 className="githubIframe"
                 frameBorder="0"
@@ -88,7 +88,7 @@ class BlogLayout extends Component {
           <br />
           <Row>
             <Col md="8">
-              <Navbar bg="light" variant="white">
+              <Navbar variant="light">
                 <Link to="/blog">
                   <Navbar.Brand>首页</Navbar.Brand>
                 </Link>

@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-26 08:37:36
- * @LastEditTime: 2019-09-01 00:04:53
+ * @LastEditTime: 2019-09-05 12:48:52
  * @Description: 主要是存放博客 和 漫画的最新更新内容
  */
 import contentApi from "../../axiosApi/content";
@@ -28,7 +28,10 @@ class BlogList extends Component {
     let _topComic = topComic.map(topcomic => (
       <ListGroup.Item key={uuidv4()}>
         {topcomic.title}
-        {_.get(_.split(_.get(topcomic, "path"), "."), "0")}
+        {_.get(
+          _.split(_.get(_.split(_.get(topcomic, "path"), "."), "0"), "/"),
+          "2"
+        )}
       </ListGroup.Item>
     ));
     this.setState({ topContent: _topContent, topComic: _topComic });
