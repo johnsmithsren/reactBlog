@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-31 13:33:36
- * @LastEditTime: 2019-09-05 17:48:12
+ * @LastEditTime: 2019-09-05 17:51:10
  * @Description: 博客内容组件
  */
 
@@ -84,11 +84,9 @@ class SubBlogTab extends Component {
               />
               <Card.Body onClick={e => this.redirect(e, content)}>
                 <Card.Title>{content.title}</Card.Title>
-                <Card.Text>
-                  This is a longer card with supporting text below as a natural
-                  lead-in to additional content. This content is a little bit
-                  longer.
-                </Card.Text>
+                {/* <Card.Text>
+                  
+                </Card.Text> */}
                 <small className="text-muted">
                   创建于{new Date(content.createTime * 1000).toLocaleString()}
                   <br />
