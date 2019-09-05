@@ -1,18 +1,17 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-31 13:33:36
- * @LastEditTime: 2019-09-05 15:46:55
+ * @LastEditTime: 2019-09-05 17:48:12
  * @Description: 博客内容组件
  */
 
 import React, { Component } from "react";
 import { withRouter, Redirect } from "react-router-dom";
-import { ListGroup, Row, Tab, Col, CardColumns, Card } from "react-bootstrap";
+import { Tab, CardColumns, Card } from "react-bootstrap";
 import PaginationHandle from "../pagination";
 import contentApi from "../../axiosApi/content";
 const _ = require("lodash");
 const uuidv4 = require("uuid/v4");
-
 // 定义一个 博客列表 组件
 class SubBlogTab extends Component {
   constructor(props) {
@@ -61,47 +60,28 @@ class SubBlogTab extends Component {
       return <Redirect to={{ from: { pathname: "/show" } }} />;
     }
     if (this.state.type === "blog") {
-      // var htmlToReactParser = new HtmlToReactParser();
-      //   blogRow = this.state.contentList.map(content => (
-      //     <>
-      //       <Row key={uuidv4()} md={12}>
-      //         <Col key={uuidv4()}>
-      //           <ListGroup key={uuidv4()} variant="flush">
-      //             <ListGroup.Item
-      //               key={uuidv4()}
-      //               variant="light"
-      //               bssize="sm"
-      //               onClick={e => this.redirect(e, content)}
-      //             >
-      //               <Col key={uuidv4()} md="8">
-      //                 <h5 key={uuidv4()}>{content.title}</h5>
-      //               </Col>
-      //               <Col key={uuidv4()}>
-      //                 创建于{new Date(content.createTime * 1000).toLocaleString()}
-      //               </Col>
-      //               <Col key={uuidv4()}>
-      //                 {content.updateTime
-      //                   ? `更新于${new Date(
-      //                       content.updateTime * 1000
-      //                     ).toLocaleString()}`
-      //                   : []}
-      //               </Col>
-      //             </ListGroup.Item>
-      //           </ListGroup>
-      //         </Col>
-      //       </Row>
-      //     </>
-      //   ));
+      const thumbnails = [
+        "contentThumbOne",
+        "contentThumbTwo",
+        "contentThumbThree",
+        "contentThumbFour"
+      ];
       let count = 0;
-      blogRow = this.state.contentList.map((content, index) => {
+      blogRow = this.state.contentList.map(content => {
         if (count === 3) {
           count = 0;
         }
         count++;
         if (count === 1) {
           return (
-            <Card>
-              <Card.Img variant="top" src="holder.js/100px160" />
+            <Card key={uuidv4()}>
+              <Card.Img
+                variant="top"
+                key={uuidv4()}
+                src={require(`../images/${
+                  thumbnails[Math.floor(Math.random() * 4)]
+                }.jpeg`)}
+              />
               <Card.Body onClick={e => this.redirect(e, content)}>
                 <Card.Title>{content.title}</Card.Title>
                 <Card.Text>
@@ -126,7 +106,7 @@ class SubBlogTab extends Component {
           return (
             <Card className="p-3">
               <blockquote className="blockquote mb-0 card-body">
-                <p>{content.title}</p>
+                <p onClick={e => this.redirect(e, content)}>{content.title}</p>
                 <footer className="blockquote-footer">
                   <small className="text-muted">
                     创建于{new Date(content.createTime * 1000).toLocaleString()}
@@ -145,8 +125,13 @@ class SubBlogTab extends Component {
         if (count === 3) {
           return (
             <Card>
-              <Card.Img variant="top" src="holder.js/100px160" />
-              <Card.Body>
+              <Card.Img
+                variant="top"
+                src={require(`../images/${
+                  thumbnails[Math.floor(Math.random() * 4)]
+                }.jpeg`)}
+              />
+              <Card.Body onClick={e => this.redirect(e, content)}>
                 <Card.Title>{content.title}</Card.Title>
               </Card.Body>
               <Card.Footer>
@@ -163,6 +148,7 @@ class SubBlogTab extends Component {
             </Card>
           );
         }
+        return <></>;
       });
     }
 
