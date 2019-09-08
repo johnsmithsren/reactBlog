@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-08-23 21:23:08
- * @LastEditTime: 2019-09-08 09:07:17
+ * @LastEditTime: 2019-09-08 12:08:15
  * @Description:
  */
 import React from "react";
@@ -119,9 +119,13 @@ const Auth = withRouter(({ history }) => (
           <Link to="/comic">
             <Navbar.Brand>漫画</Navbar.Brand>
           </Link>
-          <Link to="/create">
-            <Navbar.Brand>写作</Navbar.Brand>
-          </Link>
+          {Authenticated.login() ? (
+            <Link to="/create">
+              <Navbar.Brand>写作</Navbar.Brand>
+            </Link>
+          ) : (
+            []
+          )}
         </Navbar>
       </Col>
     </Row>
