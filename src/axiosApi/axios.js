@@ -1,28 +1,31 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-27 12:56:42
- * @LastEditTime: 2019-08-31 22:21:31
+ * @LastEditTime: 2019-09-08 09:38:50
  * @Description: 对于axios进行统一封装
  */
+import { message } from "antd";
 const axios = require("axios");
 const config = require("../config.json");
+const _ = require("lodash");
 
 class Axios {
   constructor() {
     this._axios = axios.create({
       baseURL: `${config.axios.url}:${config.axios.port}`
     });
-    // this.init();
+    this.init();
   }
   init() {
     // 请求过滤
     this._axios.interceptors.request.use(
       function(request) {
-        // if (isHandlerEnabled(request)) {
-        //   // Modify request here
-        //   request.headers["X-CodePen"] =
-        //     "https://codepen.io/teroauralinna/full/vPvKWe";
-        // }
+        if (!_.includes(["get"], request.method)) {
+          const token = localStorage.getItem("token");
+          let accesstoken = JSON.parse(token);
+          request.headers.common["Authorization"] =
+            "Bearer " + _.get(accesstoken, "accessToken");
+        }
         return request;
       },
       function(error) {
@@ -51,6 +54,7 @@ class Axios {
   async get(url, params = {}) {
     // 开始 loading
     // proxyUtil.startLoading();
+    message.info("加载中");
     let _getResult = await this._axios
       .get(url, {
         params: params,
@@ -62,9 +66,11 @@ class Axios {
         // 结束 loading
         // proxyUtil.endLoading();
         // 返回后端返回数据
+        // message.info("加载完成");
         return response.data;
       })
       .catch(error => {
+        message.info("内部异常");
         // 异常处理
         // proxyUtil.endLoading();
         // proxyUtil.alertMessage(error);
@@ -81,13 +87,15 @@ class Axios {
 
   async post(url, params = {}) {
     // 开始 loading
-    // proxyUtil.startLoading();
+    message.info("加载中");
     let _getResult = await this._axios
       .post(url, params)
       .then(response => {
+        message.info("加载完成");
         return response.data;
       })
       .catch(error => {
+        message.info("内部异常");
         // 异常处理
         // proxyUtil.endLoading();
         // proxyUtil.alertMessage(error);
@@ -131,6 +139,7 @@ class Axios {
   async delete(url, params = {}) {
     // 开始 loading
     // proxyUtil.startLoading();
+    message.info("加载中");
     return await this._axios
       .delete(url, {
         params: params,
@@ -143,9 +152,11 @@ class Axios {
         // 结束 loading
         // proxyUtil.endLoading();
         // 返回后端返回数据
+        message.info("加载完成");
         return response.data;
       })
       .catch(error => {
+        message.info("内部异常");
         // 异常处理
         // proxyUtil.endLoading();
         // proxyUtil.alertMessage(error);

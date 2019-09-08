@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-08-28 09:07:33
- * @LastEditTime: 2019-09-02 22:56:26
+ * @LastEditTime: 2019-09-07 21:01:40
  * @Description: 使用的是一个富文本编辑器插件
  */
 import "braft-editor/dist/index.css";
@@ -10,7 +10,6 @@ import BraftEditor from "braft-editor";
 import contentApi from "../../axiosApi/content";
 import { Row, Button, Form, Col, Container } from "react-bootstrap";
 import "./blogContentEditor.css";
-// const MarkdownEditor = require("react-markdown-editor").MarkdownEditor;
 import MdEditor from "react-markdown-editor-lite";
 import MarkdownIt from "markdown-it";
 const _ = require("lodash");
@@ -63,6 +62,12 @@ export default class Editor extends Component {
       });
     }
   }
+
+  /**
+   * @description: 改变编辑器为markdown的插件
+   * @param {type}
+   * @return:
+   */
   changeToMarkdown() {
     if (this.state.markdown) {
       this.setState({
@@ -74,7 +79,12 @@ export default class Editor extends Component {
       });
     }
   }
-  handleGetMdValue = () => {};
+
+  /**
+   * @description: 当点击保存时候触发，保存文章，标题内容信息到服务器
+   * @param {type}
+   * @return:
+   */
   async submitContent() {
     // 在编辑器获得焦点时按下ctrl+s会执行此方法
     // 编辑器内容提交到服务端之前，可直接调用editorState.toHTML()来获取HTML格式的内容

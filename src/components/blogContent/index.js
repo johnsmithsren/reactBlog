@@ -1,8 +1,8 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-24 20:16:12
- * @LastEditTime: 2019-09-02 22:38:53
- * @Description:
+ * @LastEditTime: 2019-09-08 09:10:24
+ * @Description:  博客内容展示页
  */
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
@@ -17,7 +17,8 @@ class Content extends Component {
     super(props);
     this.state = {
       content: _.get(this, "props.location.query.content", "<p>暂无文章</p>"),
-      markdown: false
+      markdown: false,
+      username: ""
     };
     // this.getContent = this.getContent.bind(this);
   }
@@ -29,14 +30,18 @@ class Content extends Component {
     const { history } = this.props;
     history.push(from);
   }
-
-  // changeToMarkdown() {
-  //   if (this.state.markdown) {
-  //     this.setState({ markdown: false });
-  //   } else {
-  //     this.setState({ markdown: true });
-  //   }
-  // }
+  async componentDidMount() {
+    let userinfo = localStorage.getItem("token");
+    if (userinfo) {
+      userinfo = JSON.parse(userinfo);
+      this.setState({ username: _.get(userinfo, "username") });
+    }
+  }
+  /**
+   * @description: 文章删除，删除完成后跳转到博客列表页面
+   * @param {type}
+   * @return:
+   */
   async delete() {
     await contentApi.deleteContent(_.get(this, "props.location.query.id"));
     let from = {
@@ -57,16 +62,21 @@ class Content extends Component {
     return (
       <>
         <Container>
-          <Row>
-            <Col md={{ offset: "9" }}>
-              <Button variant="light" onClick={e => this.change(e, "edit")}>
-                编辑
-              </Button>
-              <Button variant="light" onClick={e => this.delete()}>
-                删除
-              </Button>
-            </Col>
-          </Row>
+          {this.state.username ? (
+            <Row>
+              <Col md="12">
+                <Button variant="light" onClick={e => this.change(e, "edit")}>
+                  编辑
+                </Button>
+                <Button variant="light" onClick={e => this.delete()}>
+                  删除
+                </Button>
+              </Col>
+            </Row>
+          ) : (
+            []
+          )}
+
           <Row>
             <Col md="12">
               <div

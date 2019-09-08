@@ -2,7 +2,7 @@
  * @Auther: renjm
  * @Date: 2019-07-26 08:37:36
  * @LastEditTime: 2019-09-05 12:48:52
- * @Description: 主要是存放博客 和 漫画的最新更新内容
+ * @Description: 主要是存放博客 和 漫画的最新更新内容 侧边栏
  */
 import contentApi from "../../axiosApi/content";
 import comicApi from "../../axiosApi/comic";
@@ -19,6 +19,11 @@ class BlogList extends Component {
     };
   }
 
+  /**
+   * @description: 组件加载后从服务器分别获取最新的漫画 和 博客 内容
+   * @param {type}
+   * @return:
+   */
   async componentDidMount() {
     let topContent = await contentApi.getTopBlog();
     let topComic = await comicApi.getTopComic();

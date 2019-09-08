@@ -17,14 +17,6 @@ class BlogNavBar extends Component {
       issues: [{ id: 1, name: "hhh", Col: "这是一段评论" }],
       type: "blog"
     };
-    this.updateNavBarType = this.updateNavBarType.bind(this);
-  }
-
-  updateNavBarType(type) {
-    this.setState({ type: type });
-  }
-  deleteIssues() {
-    this.setState({ issues: [] });
   }
 
   render() {

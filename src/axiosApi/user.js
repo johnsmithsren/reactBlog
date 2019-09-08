@@ -1,12 +1,13 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-27 11:22:54
- * @LastEditTime: 2019-07-27 13:54:19
+ * @LastEditTime: 2019-09-07 09:01:55
  * @Description: 用户相关接口
  */
 
 import Axios from "./axios";
-
+import { message } from "antd";
+const _ = require("lodash");
 class UserManger {
   constructor() {
     this._axios = new Axios();
@@ -27,10 +28,12 @@ class UserManger {
     return this._axios.get(`/users/${id}`);
   }
   createUser(data = {}) {
-    if (!data || !Object.keys(data).length) {
-      return Promise.reject(new Error("createUser：提交的数据无效"));
+    if (_.isEmpty(data) || Object.keys(data).length !== 4) {
+      return message.info("不能为空");
     }
-    return this._axios.post("/users", data, { ...this.dataMethodDefaults });
+    return this._axios.get("/create/user", data, {
+      ...this.dataMethodDefaults
+    });
   }
 
   updateUser(id, update = {}) {

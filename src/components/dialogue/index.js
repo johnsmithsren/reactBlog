@@ -1,8 +1,8 @@
 /*
  * @Auther: renjm
  * @Date: 2019-08-02 21:53:50
- * @LastEditTime: 2019-08-30 21:37:32
- * @Description:
+ * @LastEditTime: 2019-09-06 15:50:15
+ * @Description:  弹出框，暂时无用
  */
 import React, { Component } from "react";
 import contentApi from "../../axiosApi/content";
@@ -11,8 +11,6 @@ import { Modal, Button, InputGroup, FormControl } from "react-bootstrap";
 
 const _ = require("lodash");
 
-// import { Table } from "react-bootstrap";
-// 定义一个 hello 组件
 class modalDialog extends Component {
   constructor(props) {
     super(props);

@@ -1,24 +1,24 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-24 16:23:54
- * @LastEditTime: 2019-08-31 21:50:07
- * @Description:
+ * @LastEditTime: 2019-09-06 15:57:09
+ * @Description:  入口
  */
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import "./index.css";
-// import App from "./App";
-// import { Helmet } from "react-helmet";
 import MainLayout from "./components/mainLayout";
-// import Hello from "./components/hello";
+import Footer from "./components/footer";
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
   <BrowserRouter>
     <MainLayout />
+    <Footer />
   </BrowserRouter>,
+
   document.getElementById("root")
 );
 // const div = document.createElement("div");

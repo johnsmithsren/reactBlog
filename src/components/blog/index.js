@@ -1,8 +1,8 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-31 13:33:36
- * @LastEditTime: 2019-09-05 17:51:10
- * @Description: 博客内容组件
+ * @LastEditTime: 2019-09-08 10:18:54
+ * @Description: 博客内容组件，列表页
  */
 
 import React, { Component } from "react";
@@ -28,21 +28,18 @@ class SubBlogTab extends Component {
       totalPages: 1
     };
   }
-  // async componentWillMount() {}
+
+  /**
+   * @description: 组件加载完成后，获取博客列表
+   * @param {type}
+   * @return:
+   */
   async componentDidMount() {
     await this.getContent();
   }
 
   async getContent() {
     let contentInfo = await contentApi.listContent(this.state.active, 5);
-    this.setState({
-      contentList: _.get(contentInfo, "rows", []),
-      totalPages: _.get(contentInfo, "count", 1)
-    });
-  }
-
-  async pageHandler(active) {
-    let contentInfo = await contentApi.listContent(active, 5);
     this.setState({
       contentList: _.get(contentInfo, "rows", []),
       totalPages: _.get(contentInfo, "count", 1)
@@ -96,6 +93,15 @@ class SubBlogTab extends Component {
                       ).toLocaleString()}`
                     : []}
                 </small>
+                {content.username ? (
+                  <small>
+                    <footer className="blockquote-footer">
+                      {content.username}
+                    </footer>
+                  </small>
+                ) : (
+                  []
+                )}
               </Card.Body>
             </Card>
           );
@@ -116,6 +122,15 @@ class SubBlogTab extends Component {
                       : []}
                   </small>
                 </footer>
+                {content.username ? (
+                  <small>
+                    <footer className="blockquote-footer">
+                      {content.username}
+                    </footer>
+                  </small>
+                ) : (
+                  []
+                )}
               </blockquote>
             </Card>
           );
@@ -142,6 +157,16 @@ class SubBlogTab extends Component {
                       ).toLocaleString()}`
                     : []}
                 </small>
+
+                {content.username ? (
+                  <small>
+                    <footer className="blockquote-footer">
+                      {content.username}
+                    </footer>
+                  </small>
+                ) : (
+                  []
+                )}
               </Card.Footer>
             </Card>
           );
@@ -153,6 +178,24 @@ class SubBlogTab extends Component {
     return <CardColumns>{blogRow}</CardColumns>;
   }
 
+  /**
+   * @description: 分页操作
+   * @param {type}
+   * @return:
+   */
+  async pageHandler(active) {
+    let contentInfo = await contentApi.listContent(active, 5);
+    this.setState({
+      contentList: _.get(contentInfo, "rows", []),
+      totalPages: _.get(contentInfo, "count", 1)
+    });
+  }
+
+  /**
+   * @description: 跳转
+   * @param {type}
+   * @return:
+   */
   redirect = (e, content) => {
     this.setState({ redirectToReferrer: true, currentContent: content });
   };
