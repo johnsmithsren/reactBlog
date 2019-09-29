@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-31 22:21:33
- * @LastEditTime: 2019-09-06 15:50:01
+ * @LastEditTime: 2019-09-29 10:07:55
  * @Description: 加载pdf文档
  */
 
@@ -114,8 +114,9 @@ class Pdf extends Component {
     let options = [];
     if (this.state.comicList) {
       this.state.comicList.map(comic => {
-        let title = _.get(_.split(_.get(comic, "title"), " "), "0");
-        let word = _.get(_.split(_.get(comic, "title"), " "), "1");
+        let oldTitleArray = _.split(_.get(comic, "title"), " ")
+        let title = _.get(oldTitleArray, "0");
+        let word = _.join(_.slice(oldTitleArray, 1), ' ')
         if (_.find(options, { value: title })) {
           let _o = _.find(options, { value: title });
           let child = _.get(_o, "children", []);
@@ -165,8 +166,8 @@ class Pdf extends Component {
               </Col>
             </Row>
           ) : (
-            []
-          )}
+              []
+            )}
         </Container>
       </>
     );
