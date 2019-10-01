@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-24 20:16:12
- * @LastEditTime: 2019-09-08 09:10:24
+ * @LastEditTime: 2019-10-01 11:30:47
  * @Description:  博客内容展示页
  */
 import React, { Component } from "react";
@@ -62,43 +62,46 @@ class Content extends Component {
     return (
       <>
         <Container>
-          {this.state.username ? (
+          <div style={{ height: '1500px' }}>
+            {this.state.username ? (
+              <Row>
+                <Col md="12">
+                  <Button variant="light" onClick={e => this.change(e, "edit")}>
+                    编辑
+                </Button>
+                  <Button variant="light" onClick={e => this.delete()}>
+                    删除
+                </Button>
+                </Col>
+              </Row>
+            ) : (
+                []
+              )}
+
             <Row>
               <Col md="12">
-                <Button variant="light" onClick={e => this.change(e, "edit")}>
-                  编辑
-                </Button>
-                <Button variant="light" onClick={e => this.delete()}>
-                  删除
-                </Button>
+                <div
+                  className="title"
+                  dangerouslySetInnerHTML={{ __html: title }}
+                />
               </Col>
             </Row>
-          ) : (
-            []
-          )}
+            <Row>
+              <Col md="12">
+                {type === "markdown" ? (
+                  <div className="content">
+                    <Markdown source={content} />
+                  </div>
+                ) : (
+                    <div
+                      className="content"
+                      dangerouslySetInnerHTML={{ __html: content }}
+                    />
+                  )}
+              </Col>
+            </Row>
+          </div>
 
-          <Row>
-            <Col md="12">
-              <div
-                className="title"
-                dangerouslySetInnerHTML={{ __html: title }}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col md="12">
-              {type === "markdown" ? (
-                <div className="content">
-                  <Markdown source={content} />
-                </div>
-              ) : (
-                <div
-                  className="content"
-                  dangerouslySetInnerHTML={{ __html: content }}
-                />
-              )}
-            </Col>
-          </Row>
         </Container>
       </>
     );

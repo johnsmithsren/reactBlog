@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-26 08:37:36
- * @LastEditTime: 2019-08-31 10:44:51
+ * @LastEditTime: 2019-10-01 11:25:20
  * @Description:
  */
 import React, { Component } from "react";
@@ -22,7 +22,7 @@ class BlogNavBar extends Component {
   render() {
     return (
       <Container>
-        <Row>
+        <Row style={{ height: '1000px' }}>
           <Col md="10">
             <BlogSector
               issueId={2}

@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-31 13:33:36
- * @LastEditTime: 2019-09-08 10:18:54
+ * @LastEditTime: 2019-10-01 17:23:51
  * @Description: 博客内容组件，列表页
  */
 
@@ -77,7 +77,7 @@ class SubBlogTab extends Component {
                 key={uuidv4()}
                 src={require(`../images/${
                   thumbnails[Math.floor(Math.random() * 4)]
-                }.jpeg`)}
+                  }.jpeg`)}
               />
               <Card.Body onClick={e => this.redirect(e, content)}>
                 <Card.Title>{content.title}</Card.Title>
@@ -89,8 +89,8 @@ class SubBlogTab extends Component {
                   <br />
                   {content.updateTime
                     ? `更新于${new Date(
-                        content.updateTime * 1000
-                      ).toLocaleString()}`
+                      content.updateTime * 1000
+                    ).toLocaleString()}`
                     : []}
                 </small>
                 {content.username ? (
@@ -100,8 +100,8 @@ class SubBlogTab extends Component {
                     </footer>
                   </small>
                 ) : (
-                  []
-                )}
+                    []
+                  )}
               </Card.Body>
             </Card>
           );
@@ -117,8 +117,8 @@ class SubBlogTab extends Component {
                     <br />
                     {content.updateTime
                       ? `更新于${new Date(
-                          content.updateTime * 1000
-                        ).toLocaleString()}`
+                        content.updateTime * 1000
+                      ).toLocaleString()}`
                       : []}
                   </small>
                 </footer>
@@ -129,8 +129,8 @@ class SubBlogTab extends Component {
                     </footer>
                   </small>
                 ) : (
-                  []
-                )}
+                    []
+                  )}
               </blockquote>
             </Card>
           );
@@ -142,7 +142,7 @@ class SubBlogTab extends Component {
                 variant="top"
                 src={require(`../images/${
                   thumbnails[Math.floor(Math.random() * 4)]
-                }.jpeg`)}
+                  }.jpeg`)}
               />
               <Card.Body onClick={e => this.redirect(e, content)}>
                 <Card.Title>{content.title}</Card.Title>
@@ -153,8 +153,8 @@ class SubBlogTab extends Component {
                   <br />
                   {content.updateTime
                     ? `更新于${new Date(
-                        content.updateTime * 1000
-                      ).toLocaleString()}`
+                      content.updateTime * 1000
+                    ).toLocaleString()}`
                     : []}
                 </small>
 
@@ -165,8 +165,8 @@ class SubBlogTab extends Component {
                     </footer>
                   </small>
                 ) : (
-                  []
-                )}
+                    []
+                  )}
               </Card.Footer>
             </Card>
           );
@@ -213,12 +213,15 @@ class SubBlogTab extends Component {
     }
     return (
       <>
-        <Tab.Container
-          id="list-group-blog"
-          defaultActiveKey={this.state.keyPath}
-        >
-          {this.getBlogRow()}
-        </Tab.Container>
+        <div style={{ height: '900px' }}>
+          <Tab.Container
+            id="list-group-blog"
+            defaultActiveKey={this.state.keyPath}
+
+          >
+            {this.getBlogRow()}
+          </Tab.Container>
+        </div >
         <PaginationHandle
           totalPages={this.state.totalPages}
           pageSize="5"

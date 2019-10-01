@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-27 12:56:42
- * @LastEditTime: 2019-09-08 09:38:50
+ * @LastEditTime: 2019-09-29 10:14:27
  * @Description: 对于axios进行统一封装
  */
 import { message } from "antd";
@@ -12,14 +12,14 @@ const _ = require("lodash");
 class Axios {
   constructor() {
     this._axios = axios.create({
-      baseURL: `${config.axios.url}:${config.axios.port}`
+      baseURL: config.axios.port ? `${config.axios.url}:${config.axios.port}` : `${config.axios.url}`
     });
     this.init();
   }
   init() {
     // 请求过滤
     this._axios.interceptors.request.use(
-      function(request) {
+      function (request) {
         if (!_.includes(["get"], request.method)) {
           const token = localStorage.getItem("token");
           let accesstoken = JSON.parse(token);
@@ -28,7 +28,7 @@ class Axios {
         }
         return request;
       },
-      function(error) {
+      function (error) {
         // Do something with request error
         return Promise.reject(error);
       }
@@ -36,11 +36,11 @@ class Axios {
 
     // 返回过滤
     this._axios.interceptors.response.use(
-      function(response) {
+      function (response) {
         // Do something with response data
         return response;
       },
-      function(error) {
+      function (error) {
         // Do something with response error
         return Promise.reject(error);
       }
@@ -58,7 +58,7 @@ class Axios {
     let _getResult = await this._axios
       .get(url, {
         params: params,
-        validateStatus: function(status) {
+        validateStatus: function (status) {
           return status >= 200 && status < 300;
         }
       })
@@ -75,7 +75,7 @@ class Axios {
         // proxyUtil.endLoading();
         // proxyUtil.alertMessage(error);
       })
-      .finally(function() {
+      .finally(function () {
         // always executed
       });
     if (_getResult) {
@@ -100,7 +100,7 @@ class Axios {
         // proxyUtil.endLoading();
         // proxyUtil.alertMessage(error);
       })
-      .finally(function() {
+      .finally(function () {
         // always executed
       });
     if (_getResult) {
@@ -116,7 +116,7 @@ class Axios {
     return this._axios
       .put(url, {
         params: params,
-        validateStatus: function(status) {
+        validateStatus: function (status) {
           // axios 底层采用 Promise 实现，下方表达式表示只有返回 code 为 2xx 才被正常返回（resolve），非 2xx 全部当做异常（reject）
           return status >= 200 && status < 300;
         }
@@ -132,7 +132,7 @@ class Axios {
         // proxyUtil.endLoading();
         // proxyUtil.alertMessage(error);
       })
-      .finally(function() {
+      .finally(function () {
         // always executed
       });
   }
@@ -143,7 +143,7 @@ class Axios {
     return await this._axios
       .delete(url, {
         params: params,
-        validateStatus: function(status) {
+        validateStatus: function (status) {
           // axios 底层采用 Promise 实现，下方表达式表示只有返回 code 为 2xx 才被正常返回（resolve），非 2xx 全部当做异常（reject）
           return status >= 200 && status < 300;
         }
@@ -161,7 +161,7 @@ class Axios {
         // proxyUtil.endLoading();
         // proxyUtil.alertMessage(error);
       })
-      .finally(function() {
+      .finally(function () {
         // always executed
       });
   }
@@ -190,7 +190,7 @@ class Axios {
         //   proxyUtil.endLoading()
         //   proxyUtil.alertMessage(error)
       })
-      .finally(function() {
+      .finally(function () {
         // always executed
       });
   }

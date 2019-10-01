@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-31 22:21:33
- * @LastEditTime: 2019-09-29 10:07:55
+ * @LastEditTime: 2019-10-01 11:26:36
  * @Description: 加载pdf文档
  */
 
@@ -135,39 +135,42 @@ class Pdf extends Component {
 
     return (
       <>
-        <Container>
-          <Cascader
-            options={options}
-            onChange={e => this.onChange(e)}
-            placeholder={this.state.comicTitle}
-          />
-          {this.state.comicPath ? (
-            <Row>
-              <Col>
-                <Document
-                  file={`${this.state.comicPath}`}
-                  onLoadSuccess={this.onDocumentLoadSuccess}
-                >
-                  <Page pageNumber={pageNumber} />
-                </Document>
-                <p>
-                  Page {pageNumber} of {numPages}
-                </p>
-              </Col>
-              <Col md={{ offset: 5 }}>
-                <nav>
-                  <Button variant="light" onClick={this.goToPrevPage}>
-                    上一页
+        <Container >
+          <div style={{ height: '1500px' }}>
+            <Cascader
+              options={options}
+              onChange={e => this.onChange(e)}
+              placeholder={this.state.comicTitle}
+            />
+            {this.state.comicPath ? (
+              <Row>
+                <Col>
+                  <Document
+                    file={`${this.state.comicPath}`}
+                    onLoadSuccess={this.onDocumentLoadSuccess}
+                  >
+                    <Page pageNumber={pageNumber} />
+                  </Document>
+                  <p>
+                    Page {pageNumber} of {numPages}
+                  </p>
+                </Col>
+                <Col md={{ offset: 5 }}>
+                  <nav>
+                    <Button variant="light" onClick={this.goToPrevPage}>
+                      上一页
                   </Button>
-                  <Button variant="light" onClick={this.goToNextPage}>
-                    下一页
+                    <Button variant="light" onClick={this.goToNextPage}>
+                      下一页
                   </Button>
-                </nav>
-              </Col>
-            </Row>
-          ) : (
-              []
-            )}
+                  </nav>
+                </Col>
+              </Row>
+            ) : (
+                []
+              )}
+          </div>
+
         </Container>
       </>
     );

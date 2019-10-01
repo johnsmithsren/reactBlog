@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-08-23 21:23:08
- * @LastEditTime: 2019-09-08 12:08:15
+ * @LastEditTime: 2019-10-01 11:15:40
  * @Description:
  */
 import React from "react";
@@ -66,6 +66,8 @@ const Authenticated = {
 
 const Auth = withRouter(({ history }) => (
   <Container>
+
+
     <br />
     <Row className="justify-content-md-center">
       <Col md="10">
@@ -88,8 +90,8 @@ const Auth = withRouter(({ history }) => (
             </p>
           </div>
         ) : (
-          <Link to="/login">登录</Link>
-        )}
+            <Link to="/login">登录</Link>
+          )}
       </Col>
     </Row>
     <Row className="justify-content-md-start">
@@ -124,8 +126,8 @@ const Auth = withRouter(({ history }) => (
               <Navbar.Brand>写作</Navbar.Brand>
             </Link>
           ) : (
-            []
-          )}
+              []
+            )}
         </Navbar>
       </Col>
     </Row>
