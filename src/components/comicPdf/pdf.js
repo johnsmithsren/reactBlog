@@ -1,13 +1,13 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-31 22:21:33
- * @LastEditTime: 2019-10-01 11:26:36
+ * @LastEditTime: 2019-10-01 20:01:47
  * @Description: 加载pdf文档
  */
 
 import React, { Component } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
-import { Cascader } from "antd";
+import { Cascader, message } from "antd";
 import { Button, Col, Row, Container } from "react-bootstrap";
 import comicApi from "../../axiosApi/comic";
 const _ = require("lodash");
@@ -96,8 +96,14 @@ class Pdf extends Component {
    * @param {type}
    * @return:
    */
-  goToPrevPage = () =>
+  goToPrevPage = () => {
+    if (this.state.pageNumber === 1) {
+      message.warn('不能往前啦');
+      return
+    }
     this.setState(state => ({ pageNumber: state.pageNumber - 1 }));
+  }
+
 
   /**
    * @description: pdf插件使用，下一页
@@ -105,8 +111,14 @@ class Pdf extends Component {
    * @return:
    */
 
-  goToNextPage = () =>
+  goToNextPage = () => {
+    if (this.state.pageNumber === this.state.numPages) {
+      message.warn('最后一页啦');
+      return
+    }
     this.setState(state => ({ pageNumber: state.pageNumber + 1 }));
+  }
+
 
   render() {
     const { pageNumber, numPages } = this.state;

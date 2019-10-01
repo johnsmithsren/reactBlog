@@ -1,21 +1,22 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-26 08:37:36
- * @LastEditTime: 2019-09-05 12:48:52
+ * @LastEditTime: 2019-10-01 20:57:52
  * @Description: 主要是存放博客 和 漫画的最新更新内容 侧边栏
  */
 import contentApi from "../../axiosApi/content";
 import comicApi from "../../axiosApi/comic";
 import React, { Component } from "react";
-import { ListGroup, Row, Col, Badge } from "react-bootstrap";
+import { PageHeader } from 'antd';
+import { ListGroup, Row, Col } from "react-bootstrap";
 const uuidv4 = require("uuid/v4");
 const _ = require("lodash");
 class BlogList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      topContent: <p>漫画没有更新</p>,
-      topComic: <p>博客没有更新</p>
+      topContent: <></>,
+      topComic: <></>
     };
   }
 
@@ -28,10 +29,10 @@ class BlogList extends Component {
     let topContent = await contentApi.getTopBlog();
     let topComic = await comicApi.getTopComic();
     let _topContent = topContent.map(topcontent => (
-      <ListGroup.Item key={uuidv4()}>{topcontent.title}</ListGroup.Item>
+      <ListGroup.Item key={uuidv4()} style={{ border: '2px solid', 'border-radius': '25px', opacity: '0.8' }}>{topcontent.title}</ListGroup.Item>
     ));
     let _topComic = topComic.map(topcomic => (
-      <ListGroup.Item key={uuidv4()}>
+      <ListGroup.Item key={uuidv4()} style={{ border: '2px solid', 'border-radius': '25px', opacity: '0.8' }}>
         {topcomic.title}
         {_.get(
           _.split(_.get(_.split(_.get(topcomic, "path"), "."), "0"), "/"),
@@ -42,17 +43,22 @@ class BlogList extends Component {
     this.setState({ topContent: _topContent, topComic: _topComic });
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() { }
 
   render() {
     return (
       <Row>
         <Col>
-          <Badge variant="secondary">最新更新</Badge>
-          <ListGroup variant="flush">
-            {this.state.topContent}
-            {this.state.topComic}
-          </ListGroup>
+
+          <React.Fragment>
+            <PageHeader title={'最新更新'} style={{ border: '2px solid', 'border-radius': '25px', opacity: '0.8' }} />
+            <ListGroup variant="flush" >
+              {this.state.topContent}
+              {this.state.topComic}
+            </ListGroup>
+
+          </React.Fragment>
+
         </Col>
       </Row>
     );

@@ -1,7 +1,7 @@
 /*
  * @Auther: renjm
  * @Date: 2019-07-27 12:56:42
- * @LastEditTime: 2019-09-29 10:14:27
+ * @LastEditTime: 2019-10-01 19:53:35
  * @Description: 对于axios进行统一封装
  */
 import { message } from "antd";
@@ -54,7 +54,7 @@ class Axios {
   async get(url, params = {}) {
     // 开始 loading
     // proxyUtil.startLoading();
-    message.info("加载中");
+    // message.info("加载中");
     let _getResult = await this._axios
       .get(url, {
         params: params,

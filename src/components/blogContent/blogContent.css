@@ -2,6 +2,26 @@
   background-color: white;
 }
 
+.bg {
+  background-color: rgb(240, 244, 245);
+  height:1000px;
+  text-align: center;
+  line-height: 1000px;
+  opacity:0.8;
+  border-radius: 10px
+}
+
+.bg-blur {
+  float: left;
+  width: 80%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  filter: blur(25px);
+}
 .content {
-  background-color: white;
+  width: 70%;
+  font-size: 20px;
+  height:600px;
+  position: absolute;
 }
